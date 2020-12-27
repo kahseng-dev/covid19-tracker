@@ -33,6 +33,13 @@ form {
     background-color: #fff;
 }
 
+.btn-block {
+    text-align: left;
+    border-style: none;
+    background: none;
+    font-weight: bold;
+}
+
 footer {
     background-color: #222;
     text-align: center;
