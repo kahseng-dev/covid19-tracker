@@ -12,13 +12,13 @@
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#"><img src="img/logo.png" alt="Logo" width="42" height="42">COVID-19 Tracker</a>
+        <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="Logo" width="42" height="42">COVID-19 Tracker</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" href="#">Summary<span class="sr-only">(current)</span></a>
+            <a class="nav-link active" href="index.html">Summary<span class="sr-only">(current)</span></a>
             <a class="nav-link" href="html/datatable.html">Data Table</a>
             <a class="nav-link" href="html/dashboard.html">Dashboard</a>
           </div>
@@ -29,34 +29,35 @@
     <div class="summary-group">
       <div class="title">
         <h1>COVID-19 Coronavirus Pandemic at a Glance</h1>
-        <p id="date-update">Last updated: -</p>
+        <p>Last updated: <span id="data-date"></span></p>
+        <button type="button" class="btn btn-outline-light">Refresh</button>
       </div>
 
       <div class="cases-group">
         <div class="confirmed-cases">
-          <h1 id="confirmed-data" class="stat">...</h1>
-          <h2 id="new-confirmed-data" class="sub-stat">+...</h2>
+          <h1 id="confirmed-data" class="stat"></h1>
+          <h2 class="sub-stat">+<span id="new-confirmed-data"></span></h2>
           <p>Global Confirmed Cases</p>
         </div>
         <div class="deaths-cases">
-          <h1 id="deaths-data" class="stat">...</h1>
-          <h2 id="new-active-data" class="sub-stat">+...</h2>
+          <h1 id="deaths-data" class="stat"></h1>
+          <h2 class="sub-stat">+<span id="new-deaths-data"></span></h2>
           <p>Global Deaths</p>
         </div>
         <div class="recovered-cases">
-          <h1 id="recovered-data" class="stat">...</h1>
-          <h2 id="new-active-data" class="sub-stat">+...</h2>
+          <h1 id="recovered-data" class="stat"></h1>
+          <h2 class="sub-stat">+<span id="new-recovered-data"></span></h2>
           <p>Global Recovered</p>
         </div>
       </div>
 
       <div class="active-cases">
-        <h1>Global Active Cases</h1>
-        <h2 id="active-data" class="stat">...</h2>
+        <h1>Global Active Cases: </h1>
+        <h2 id="active-data" class="stat"></h2>
       </div>
 
       <div class="country">
-        <h1>COVID-19 has spread to <span id="country-data" class="stat">...</span> out of <span id="num-countries-data">...</span> countries</h1>
+        <h1>There are COVID-19 cases in <span id="country-data" class="stat"></span> out of <span id="total-country"></span>  countries</h1>
       </div>
     </div>
 
@@ -68,6 +69,8 @@
       <p>Created by Chew Kah Seng</p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>

@@ -1,8 +1,5 @@
-header {
-    background-color: #222;
-}
-
 .navbar {
+    background-color: #222;
     padding: 12px;
     border-bottom: 1px solid #444;
 }
@@ -13,6 +10,7 @@ header {
     font-weight: 500;
     font-size: 24px;
     color: #E7EB90;
+    background-color: #222;
 }
 
 .navbar-brand img {
@@ -57,11 +55,20 @@ header {
     color: #E7EB90;
 }
 
+.sub-stat {
+    font-weight: bold;
+    color: #E7EB90;
+}
+
 .active-cases {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     padding: 52px 0 52px 0;
+}
+
+#active-data {
+    padding-left: .5em;
 }
 
 .country {
