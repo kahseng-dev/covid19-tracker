@@ -1,0 +1,71 @@
+body {
+    background-color: #222;
+}
+
+.navbar {
+    padding: 12px;
+    background-color: #222;
+    border-bottom: 1px solid #444;
+}
+
+.navbar-dark .navbar-brand {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 24px;
+    color: #E7EB90;
+}
+
+.navbar-brand img {
+    margin-right: .5em;
+}
+.histogram {
+    padding-bottom: 24px;
+}
+
+.dashboard {
+    display: flex;
+    border-bottom: 1px solid #444;
+}
+
+.geochart {
+    padding: 24px;
+    color: #E7EB90;
+    text-transform: uppercase;
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0 24px 24px;
+    color: #E7EB90;
+    border-left: 1px solid #444;
+}
+
+.stats-container h1 {
+    font-size: 24px;
+    margin: 1px;
+}
+
+.stats-container p {
+    margin: 1px;
+}
+
+.total-stats-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.piechart {
+    padding-right: 24px;
+}
+
+footer {
+    text-align: center;
+    color: #888;
+    padding: 21px;
+}
+
+footer p { 
+    margin: 0;
+}
