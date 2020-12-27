@@ -5,10 +5,15 @@
 }
 
 .navbar-dark .navbar-brand {
+    display: flex;
+    align-items: center;
     font-weight: 500;
     font-size: 24px;
     color: #E7EB90;
-    background-color: #222;
+}
+
+.navbar-brand img {
+    margin-right: .5em;
 }
 
 .table-container {
