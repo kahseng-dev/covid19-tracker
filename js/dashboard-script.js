@@ -3,18 +3,34 @@ let searchRegionName = $(".custom-select option:selected").val() // used for sel
 $(document).ready(function() {
     // load google visualization API
     google.charts.load("current", {packages: ['corechart', 'geochart'] , mapsApiKey: 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
+    updateChart(); // inital chart draw function
+
+    addCountriesToSelect(); // find country data from api and push it to select country option.
+    $(".custom-select").on("change", function(e) {
+        searchRegionName = $(".custom-select option:selected").val();
+        google.charts.setOnLoadCallback(drawRegionMap); // call geo chart function
+        google.charts.setOnLoadCallback(drawBarChart); // call bar chart function
+    });
     
+    // due to google chart limitation, it is not responsive. We need to redraw each time the window changes.
+    $(window).resize(function() { // create a trigger to resizeEnd event to set a timeout to reduce multiple resize updates
+        if(this.resizeTO) clearTimeout(this.resizeTO);
+        this.resizeTO = setTimeout(function() {
+            $(this).trigger('resizeEnd');
+        }, 200); // set to 200 ms
+    });
+    
+    $(window).on('resizeEnd', function() { // when resize is done, charts will update.
+        updateChart();
+    });
+});
+
+function updateChart() {
     google.charts.setOnLoadCallback(drawRegionMap); // call geo chart function
     google.charts.setOnLoadCallback(drawBarChart); // call bar chart function
     google.charts.setOnLoadCallback(drawPieChart); // call pie chart function
     google.charts.setOnLoadCallback(drawLineChart); // call line chart function
-
-    addCountriesToSelect();
-    $(".custom-select").on("change", function(e) {
-        searchRegionName = $(".custom-select option:selected").val();
-        google.charts.setOnLoadCallback(drawRegionMap); // call geo chart function
-    });
-});
+}
 
 function addCountriesToSelect() {
     fetch("https://covid19-api.org/api/countries")
@@ -34,18 +50,17 @@ function drawRegionMap() { // geo chart function
         for (var i = 0; i < data.length; i++) {
             tableArray.push([data[i].country, data[i].cases]);
         }
-        var dataTable = google.visualization.arrayToDataTable(tableArray);
-
+        
         var options = {
             region: searchRegionName,
             backgroundColor: 'none',
             datalessRegionColor: '#888',
-            colorAxis: {colors: ['#FAFFD8', '#FFD97D', '#FFBF46', '#EE6055', '#DE3C4B']},
+            colorAxis: {colors: ['#FAFFD8', '#FFBF46', '#EE6055', '#DE3C4B']},
             legend: {textStyle: {color:'#888', auraColor: 'none', fontSize: 16}}
         };
         
         var chart = new google.visualization.GeoChart(document.getElementById('regionMap'));
-        chart.draw(dataTable, options);
+        chart.draw(google.visualization.arrayToDataTable(tableArray), options);
     });
 }
 
