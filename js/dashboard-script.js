@@ -31,6 +31,14 @@ function updateChart() {
     google.charts.setOnLoadCallback(drawLineChart); // call line chart function
 }
 
+function initTimelineURL() {
+    var url = "https://covid19-api.org/api/timeline";
+    if (searchRegionCode != 'world') {
+        url += ("/" + searchRegionCode);
+    }
+    return url;
+}
+
 function addCountriesToSelect() {
     fetch("https://covid19-api.org/api/countries")
     .then(response => response.json())
@@ -42,6 +50,16 @@ function addCountriesToSelect() {
 }
 
 function drawRegionMap() { // geo chart function
+    var options = {
+        region: searchRegionCode,
+        backgroundColor: 'none',
+        datalessRegionColor: '#888',
+        colorAxis: {colors: ['#FAFFD8', '#FFBF46', '#EE6055', '#DE3C4B']},
+        legend: {textStyle: {color:'#888', auraColor: 'none', fontSize: 16}}
+    };
+
+    var chart = new google.visualization.GeoChart(document.getElementById('regionMap'));
+
     fetch("https://covid19-api.org/api/status")
     .then(response => response.json())
     .then(function(data) {
@@ -49,25 +67,11 @@ function drawRegionMap() { // geo chart function
         for (var i = 0; i < data.length; i++) {
             tableArray.push([data[i].country, data[i].cases]);
         }
-        
-        var options = {
-            region: searchRegionCode,
-            backgroundColor: 'none',
-            datalessRegionColor: '#888',
-            colorAxis: {colors: ['#FAFFD8', '#FFBF46', '#EE6055', '#DE3C4B']},
-            legend: {textStyle: {color:'#888', auraColor: 'none', fontSize: 16}}
-        };
-        
-        var chart = new google.visualization.GeoChart(document.getElementById('regionMap'));
         chart.draw(google.visualization.arrayToDataTable(tableArray), options);
     });
 }
 
 function drawBarChart() { // bar chart function
-    var url = "https://covid19-api.org/api/timeline";
-    if (searchRegionCode != 'world') {
-        url += ("/" + searchRegionCode);
-    }
     var dataTable = new google.visualization.DataTable();
     dataTable.addColumn('date', 'Date');
     dataTable.addColumn('number', 'Cases');
@@ -83,7 +87,7 @@ function drawBarChart() { // bar chart function
 
     var chart = new google.visualization.ColumnChart(document.getElementById("barChart"));
     
-    fetch(url)
+    fetch(initTimelineURL())
     .then(response => response.json())
     .then(function(data) {
         var tableArray = [];
@@ -101,26 +105,32 @@ function drawBarChart() { // bar chart function
             }
         }
         dataTable.addRows(tableArray);
-
         chart.draw(dataTable, options);
     })
     .catch(function(error) { // error handling for non existing data
         var tableArray = [];
         for (var i = 1; i < 10; i++) {
             var nDate = new Date();
-            tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), 0]);
+            tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), null]);
         }
+        dataTable.addRows(tableArray);
         chart.draw(dataTable, options);
     });
 }
 
 function drawPieChart() { // pie chart function
-    var url = "https://covid19-api.org/api/timeline";
-    if (searchRegionCode != 'world') {
-        url += ("/" + searchRegionCode);
-    }
+    var options = {
+        chartArea: {width: '80%', height: '90%'},
+        backgroundColor: 'none',
+        legend: 'none',
+        tooltip: {textStyle: {fontSize: 12}},
+        pieSliceTextStyle: {fontSize: 16},
+        slices: {0:{color: '#EC7505'}, 1:{color: '#5FAD41'}, 2:{color: '#FF5154'}}
+    };
 
-    fetch(url)
+    var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
+
+    fetch(initTimelineURL())
     .then(response => response.json())
     .then(function(data) {
         if (searchRegionCode != 'world') {
@@ -140,38 +150,29 @@ function drawPieChart() { // pie chart function
                 ['Death', data[0].total_deaths],
             ]);
         }
-
-        var options = {
-            chartArea: {width: '80%', height: '90%'},
-            backgroundColor: 'none',
-            legend: 'none',
-            tooltip: {textStyle: {fontSize: 12}},
-            pieSliceTextStyle: {fontSize: 16},
-            slices: {
-                0: {color: '#EC7505'},
-                1: {color: '#5FAD41'},
-                2: {color: '#FF5154'}
-            }
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
         chart.draw(dataTable, options);
     });
 }
 
 function drawLineChart() { // line chart function
-    var url = "https://covid19-api.org/api/timeline";
-    if (searchRegionCode != 'world') {
-        url += ("/" + searchRegionCode);
-    }
-    
-    fetch(url)
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn('date', 'Date');
+    dataTable.addColumn('number', 'Cases');
+
+    var options = {
+        backgroundColor: 'none',
+        legend: 'none',
+        chartArea: {width: '70%', height: '80%'},
+        colors: ['#E7EB90'],
+        hAxis: {title: 'Date', format: 'MMM d', titleTextStyle: {color: '#fff'}, textStyle: {color: '#fff'}, gridlineColor: '#333', minorGridlines: {color: 'none',  count: 0}},
+        vAxis: {title: 'Cases', format: 'short', titleTextStyle: {color: '#fff'}, textStyle: {color: '#fff'}, gridlineColor: '#333', minorGridlines: {color: '#333'}},
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('lineChart'));
+
+    fetch(initTimelineURL())
     .then(response => response.json())
     .then(function(data) {
-        var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn('date', 'Date');
-        dataTable.addColumn('number', 'Cases');
-
         var tableArray = [];
         if (searchRegionCode != 'world') {
             for (var i = 0; i < data.length; i++) {
@@ -185,17 +186,6 @@ function drawLineChart() { // line chart function
             }
         }
         dataTable.addRows(tableArray);
-
-        var options = {
-            backgroundColor: 'none',
-            legend: 'none',
-            chartArea: {width: '70%', height: '80%'},
-            colors: ['#E7EB90'],
-            hAxis: {title: 'Date', format: 'MMM d', titleTextStyle: {color: '#fff'}, textStyle: {color: '#fff'}, gridlineColor: '#333', minorGridlines: {color: 'none',  count: 0}},
-            vAxis: {title: 'Cases', format: 'short', titleTextStyle: {color: '#fff'}, textStyle: {color: '#fff'}, gridlineColor: '#333', minorGridlines: {color: '#333'}},
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('lineChart'));
         chart.draw(dataTable, options);
     });
 }
