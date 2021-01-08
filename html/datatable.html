@@ -38,12 +38,42 @@
         <thead>
           <tr>
             <th>#</th>
-            <th><button type="button" id="countryButton" class="btn-block">Country Name</button></th>
-            <th><button type="button" id="countryCodeButton" class="btn-block">Country Code</button></th>
-            <th><button type="button" id="totalCaseButton" class="btn-block">Total Cases</button></th>
-            <th><button type="button" id="totalDeathsButton" class="btn-block">Total Deaths</button></th>
-            <th><button type="button" id="totalRecoveredButton" class="btn-block">Total Recovered</button></th>
-            <th><button type="button" id="activeCaseButton" class="btn-block">Active Cases</button></th>
+            <th>
+              <input type="radio" id="countryButton" name="header" class="header">
+              <label class="btn-block" for="countryButton">
+                Country Name
+              </label>
+            </th>
+            <th>
+              <input type="radio" id="countryCodeButton" name="header" class="header">
+              <label class="btn-block" for="countryCodeButton">
+                Country Code
+              </label>
+            </th>
+            <th>
+              <input type="radio" id="totalCaseButton" name="header" class="header">
+              <label class="btn-block" for="totalCaseButton">
+                Total Cases
+              </label>
+            </th>
+            <th>
+              <input type="radio" id="totalDeathsButton" name="header" class="header">
+              <label class="btn-block" for="totalDeathsButton">
+                Total Deaths
+              </label>
+            </th>
+            <th>
+              <input type="radio" id="totalRecoveredButton" name="header" class="header">
+              <label class="btn-block" for="totalRecoveredButton">
+                Total Recovered
+              </label>
+            </th>
+            <th>
+              <input type="radio" id="activeCaseButton" name="header" class="tab">
+              <label class="btn-block" for="activeCaseButton">
+                Active Cases
+              </label>
+            </th>
           </tr>
         </thead>
         <tbody id="entries"></tbody>
