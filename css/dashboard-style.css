@@ -35,6 +35,21 @@ body {
     text-transform: uppercase;
 }
 
+.custom-select {
+    border-style: none;
+    border-bottom: 1px solid #444;
+    background: none;
+    color: #E7EB90;
+    font-size: 32px;
+    font-weight: 500;
+    padding-right: 12px;
+}
+
+.custom-select option {
+    color: #222;
+    font-size: 16px;
+}
+
 .stats-container {
     display: flex;
     flex-direction: column;

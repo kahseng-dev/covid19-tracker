@@ -1,3 +1,5 @@
+let searchRegionName = $(".custom-select option:selected").val() // used for selecting region
+
 $(document).ready(function() {
     // load google visualization API
     google.charts.load("current", {packages: ['corechart', 'geochart'] , mapsApiKey: 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
@@ -6,11 +8,25 @@ $(document).ready(function() {
     google.charts.setOnLoadCallback(drawBarChart); // call bar chart function
     google.charts.setOnLoadCallback(drawPieChart); // call pie chart function
     google.charts.setOnLoadCallback(drawLineChart); // call line chart function
+
+    addCountriesToSelect();
+    $(".custom-select").on("change", function(e) {
+        searchRegionName = $(".custom-select option:selected").val();
+        google.charts.setOnLoadCallback(drawRegionMap); // call geo chart function
+    });
 });
 
+function addCountriesToSelect() {
+    fetch("https://covid19-api.org/api/countries")
+    .then(response => response.json())
+    .then(function(data) {
+        for (var i = 0; i < data.length; i++) {
+            $(".custom-select").append(`<option value="${data[i].alpha2}">${data[i].name}</option>`);
+        }
+    });
+}
+
 function drawRegionMap() { // geo chart function
-    let searchRegionName = 'world' // used for selecting region
-    
     fetch("https://covid19-api.org/api/status")
     .then(response => response.json())
     .then(function(data) {
@@ -27,7 +43,7 @@ function drawRegionMap() { // geo chart function
             colorAxis: {colors: ['#FAFFD8', '#FFD97D', '#FFBF46', '#EE6055', '#DE3C4B']},
             legend: {textStyle: {color:'#888', auraColor: 'none', fontSize: 16}}
         };
-
+        
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
         chart.draw(dataTable, options);
     });
