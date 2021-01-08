@@ -37,6 +37,7 @@ body {
 }
 
 .custom-select {
+    cursor: pointer;
     border-style: none;
     border-bottom: 1px solid #444;
     background: none;
