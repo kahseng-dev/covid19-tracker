@@ -33,7 +33,12 @@ form {
     background-color: #fff;
 }
 
+.table th {
+    border-style: none;
+}
+
 .btn-block {
+    padding: 0;
     text-align: left;
     border-style: none;
     background: none;
