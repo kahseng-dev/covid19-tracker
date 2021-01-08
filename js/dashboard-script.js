@@ -68,14 +68,24 @@ function drawBarChart() { // bar chart function
     if (searchRegionCode != 'world') {
         url += ("/" + searchRegionCode);
     }
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn('date', 'Date');
+    dataTable.addColumn('number', 'Cases');
 
+    var options = {
+        chartArea: {width: '80%', height: '80%'},
+        colors: ['#E7EB90'],
+        legend: 'none',
+        backgroundColor: 'none',
+        hAxis: {format: 'MMM d', textStyle: {color: '#fff'}, gridlineColor: 'none', minorGridlines: {count: 0}},
+        vAxis: {format: 'short', textStyle: {color: '#fff'}, gridlineColor: '#444', minorGridlines: {color: 'none'}},
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById("barChart"));
+    
     fetch(url)
     .then(response => response.json())
     .then(function(data) {
-        var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn('date', 'Date');
-        dataTable.addColumn('number', 'Cases');
-        
         var tableArray = [];
         if (searchRegionCode != 'world') {
             for (var i = 1; i < 10; i++) {
@@ -92,15 +102,14 @@ function drawBarChart() { // bar chart function
         }
         dataTable.addRows(tableArray);
 
-        var options = {
-            chartArea: {width: '80%', height: '80%'},
-            colors: ['#E7EB90'],
-            legend: 'none',
-            backgroundColor: 'none',
-            hAxis: {format: 'MMM d', textStyle: {color: '#fff'}, gridlineColor: 'none', minorGridlines: {count: 0}},
-            vAxis: {format: 'short', textStyle: {color: '#fff'}, gridlineColor: '#444', minorGridlines: {color: 'none'}},
-        };
-        var chart = new google.visualization.ColumnChart(document.getElementById("barChart"));
+        chart.draw(dataTable, options);
+    })
+    .catch(function(error) { // error handling for non existing data
+        var tableArray = [];
+        for (var i = 1; i < 10; i++) {
+            var nDate = new Date();
+            tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), 0]);
+        }
         chart.draw(dataTable, options);
     });
 }
