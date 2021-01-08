@@ -1,41 +1,48 @@
-function findInfectedCountries(data) {
-    var noInfectedCountries = 0;
-    for (c of data.Countries) {
-        var activeCases = c.TotalConfirmed - c.TotalDeaths - c.TotalRecovered;
-        if (activeCases >= 1) {
-            noInfectedCountries += 1;
-        }
-    }
-    return noInfectedCountries;
-}
-
-let url = 'https://api.covid19api.com/summary';
-
 $(document).ready(function() {
-    fetch(url)
-    .then(response => response.json())
-    .then(function(data) {
-        var global = data.Global;
+    loadData();
 
-        // label date of data
-        $("#data-date").html(new Date(data.Date).toDateString());
-        
-        // insert total cases
-        $("#confirmed-data").html(`${global.TotalConfirmed}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#deaths-data").html(`${global.TotalDeaths}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#recovered-data").html(`${global.TotalRecovered}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        
-        // insert new cases
-        $("#new-confirmed-data").html(`${global.NewConfirmed}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#new-deaths-data").html(`${global.NewDeaths}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#new-recovered-data").html(`${global.NewRecovered}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        // insert global active cases
-        var activeData = global.TotalConfirmed - (global.TotalDeaths + global.TotalRecovered);
-        $("#active-data").html(`${activeData}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        // insert countries infected
-        $("#country-data").html(findInfectedCountries(data));
-        $("#total-country").html(data.Countries.length);
+    $("#updateData").on("click", function() { // when user clicks refresh button, reload data.
+        loadData();
     })
 });
+
+function findInfectedCountries() {
+    var infectedCountriesNum = 0;
+
+    fetch("https://covid19-api.org/api/status")
+    .then(response => response.json())
+    .then(function(data) {
+        data.forEach(function(e) {
+            var activeCases = e.cases - (e.deaths + e.recovered);
+            if (activeCases >= 1) {
+                infectedCountriesNum += 1;
+            }
+        });
+        $("#country-data").html(infectedCountriesNum);
+        $("#total-country").html(data.length);
+    });
+}
+
+function loadData() {
+    fetch("https://covid19-api.org/api/timeline")
+    .then(response => response.json())
+    .then(function(data) {
+        $("#data-date").html(new Date(data[0].last_update).toDateString()); // label the date of data
+        
+        // display total cases
+        $("#confirmed-data").html(`${data[0].total_cases}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#deaths-data").html(`${data[0].total_deaths}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#recovered-data").html(`${data[0].total_recovered}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        
+        // display new cases from previous entry
+        $("#new-confirmed-data").html(`${data[0].total_cases - data[1].total_cases}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#new-deaths-data").html(`${data[0].total_deaths - data[1].total_deaths}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#new-recovered-data").html(`${data[0].total_recovered - data[1].total_recovered}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        // display global active cases
+        var activeData = data[0].total_cases - (data[0].total_deaths + data[0].total_recovered);
+        $("#active-data").html(`${activeData}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        findInfectedCountries(); // find number of countries infected
+    })
+}
