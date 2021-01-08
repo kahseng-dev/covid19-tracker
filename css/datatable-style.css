@@ -37,7 +37,12 @@ form {
     border-style: none;
 }
 
+.headerButtons {
+    display: none;
+}
+
 .btn-block {
+    cursor: pointer;
     padding: 0;
     text-align: left;
     border-style: none;
