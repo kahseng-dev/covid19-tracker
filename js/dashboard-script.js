@@ -1,4 +1,4 @@
-let searchRegionName = $(".custom-select option:selected").val() // used for selecting region
+let searchRegionCode = $(".custom-select option:selected").val() // used for selecting region
 
 $(document).ready(function() {
     // load google visualization API
@@ -7,9 +7,8 @@ $(document).ready(function() {
 
     addCountriesToSelect(); // find country data from api and push it to select country option.
     $(".custom-select").on("change", function(e) {
-        searchRegionName = $(".custom-select option:selected").val();
-        google.charts.setOnLoadCallback(drawRegionMap); // call geo chart function
-        google.charts.setOnLoadCallback(drawBarChart); // call bar chart function
+        searchRegionCode = $(".custom-select option:selected").val();
+        updateChart();
     });
     
     // due to google chart limitation, it is not responsive. We need to redraw each time the window changes.
@@ -52,7 +51,7 @@ function drawRegionMap() { // geo chart function
         }
         
         var options = {
-            region: searchRegionName,
+            region: searchRegionCode,
             backgroundColor: 'none',
             datalessRegionColor: '#888',
             colorAxis: {colors: ['#FAFFD8', '#FFBF46', '#EE6055', '#DE3C4B']},
@@ -65,7 +64,12 @@ function drawRegionMap() { // geo chart function
 }
 
 function drawBarChart() { // bar chart function
-    fetch("https://covid19-api.org/api/timeline")
+    var url = "https://covid19-api.org/api/timeline";
+    if (searchRegionCode != 'world') {
+        url += ("/" + searchRegionCode);
+    }
+
+    fetch(url)
     .then(response => response.json())
     .then(function(data) {
         var dataTable = new google.visualization.DataTable();
@@ -73,9 +77,18 @@ function drawBarChart() { // bar chart function
         dataTable.addColumn('number', 'Cases');
         
         var tableArray = [];
-        for (var i = 1; i < 10; i++) {
-            var nDate = new Date(data[i].last_update);
-            tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), data[i-1].total_cases - data[i].total_cases]);
+        if (searchRegionCode != 'world') {
+            for (var i = 1; i < 10; i++) {
+                var nDate = new Date(data[i].last_update);
+                tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), data[i-1].cases - data[i].cases]);
+            }
+        }
+
+        else {
+            for (var i = 1; i < 10; i++) {
+                var nDate = new Date(data[i].last_update);
+                tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), data[i-1].total_cases - data[i].total_cases]);
+            }
         }
         dataTable.addRows(tableArray);
 
@@ -87,30 +100,44 @@ function drawBarChart() { // bar chart function
             hAxis: {format: 'MMM d', textStyle: {color: '#fff'}, gridlineColor: 'none', minorGridlines: {count: 0}},
             vAxis: {format: 'short', textStyle: {color: '#fff'}, gridlineColor: '#444', minorGridlines: {color: 'none'}},
         };
-
         var chart = new google.visualization.ColumnChart(document.getElementById("barChart"));
         chart.draw(dataTable, options);
     });
 }
 
 function drawPieChart() { // pie chart function
-    fetch("https://covid19-api.org/api/timeline")
+    var url = "https://covid19-api.org/api/timeline";
+    if (searchRegionCode != 'world') {
+        url += ("/" + searchRegionCode);
+    }
+
+    fetch(url)
     .then(response => response.json())
     .then(function(data) {
-        var dataTable = google.visualization.arrayToDataTable([
-            ['Status', 'Number of Cases'],
-            ['Active', data[0].total_cases - (data[0].total_deaths + data[0].total_recovered)],
-            ['Recovered', data[0].total_recovered],
-            ['Death', data[0].total_deaths],
-        ]);
+        if (searchRegionCode != 'world') {
+            var dataTable = google.visualization.arrayToDataTable([
+                ['Status', 'Number of Cases'],
+                ['Active', data[0].cases - (data[0].deaths + data[0].recovered)],
+                ['Recovered', data[0].recovered],
+                ['Death', data[0].deaths],
+            ]);
+        }
+
+        else {
+            var dataTable = google.visualization.arrayToDataTable([
+                ['Status', 'Number of Cases'],
+                ['Active', data[0].total_cases - (data[0].total_deaths + data[0].total_recovered)],
+                ['Recovered', data[0].total_recovered],
+                ['Death', data[0].total_deaths],
+            ]);
+        }
 
         var options = {
-            pieHole: 0.4,
             chartArea: {width: '80%', height: '90%'},
             backgroundColor: 'none',
             legend: 'none',
             tooltip: {textStyle: {fontSize: 12}},
-            pieSliceTextStyle: {fontSize: 14},
+            pieSliceTextStyle: {fontSize: 16},
             slices: {
                 0: {color: '#EC7505'},
                 1: {color: '#5FAD41'},
@@ -124,7 +151,12 @@ function drawPieChart() { // pie chart function
 }
 
 function drawLineChart() { // line chart function
-    fetch("https://covid19-api.org/api/timeline")
+    var url = "https://covid19-api.org/api/timeline";
+    if (searchRegionCode != 'world') {
+        url += ("/" + searchRegionCode);
+    }
+    
+    fetch(url)
     .then(response => response.json())
     .then(function(data) {
         var dataTable = new google.visualization.DataTable();
@@ -132,8 +164,16 @@ function drawLineChart() { // line chart function
         dataTable.addColumn('number', 'Cases');
 
         var tableArray = [];
-        for (var i = 0; i < data.length; i++) {
-            tableArray.push([new Date(data[i].last_update), data[i].total_cases]);
+        if (searchRegionCode != 'world') {
+            for (var i = 0; i < data.length; i++) {
+                tableArray.push([new Date(data[i].last_update), data[i].cases]);
+            }
+        }
+
+        else {
+            for (var i = 0; i < data.length; i++) {
+                tableArray.push([new Date(data[i].last_update), data[i].total_cases]);
+            }
         }
         dataTable.addRows(tableArray);
 
