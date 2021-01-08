@@ -20,19 +20,20 @@ body {
     margin-right: .5em;
 }
 
-.histogram {
-    padding-bottom: 24px;
-}
-
 .dashboard {
     display: flex;
     border-bottom: 1px solid #444;
 }
 
-.geochart {
+.geo-chart {
+    width: 50%;
+    height: 760px;
     padding: 24px;
-    color: #E7EB90;
-    text-transform: uppercase;
+    border-right: 1px solid #444;
+}
+
+#regionMap {
+    height: 95%;
 }
 
 .custom-select {
@@ -42,7 +43,7 @@ body {
     color: #E7EB90;
     font-size: 32px;
     font-weight: 500;
-    padding-right: 12px;
+    width: 100%;
 }
 
 .custom-select option {
@@ -50,30 +51,58 @@ body {
     font-size: 16px;
 }
 
-.stats-container {
+.right-graphs {
+    display: flex;
+    width: 50%;
+    height: 760px;
     display: flex;
     flex-direction: column;
-    padding: 24px 0 24px 24px;
+    padding: 24px;
     color: #E7EB90;
-    border-left: 1px solid #444;
 }
 
-.stats-container h1 {
+.right-graphs h1 {
     font-size: 24px;
-    margin: 1px;
 }
 
-.stats-container p {
-    margin: 1px;
+.bar-chart {
+    height: 50%;
+    margin-bottom: 24px;
 }
 
-.total-stats-group {
+#barChart {
+    height: 70%;
+    width: 100%;
+}
+
+.total-stats {
+    height: 50%;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
 }
 
-.piechart {
-    padding-right: 24px;
+.pie-chart {
+    text-align: center;
+    height: 100%;
+    width: 40%;
+    margin-right: 24px;
+}
+
+#pieChart {
+    width: 100%;
+    height: 90%;
+}
+
+.line-chart {
+    height: 100%;
+    width: 60%;
+}
+
+#lineChart {
+    width: 100%;
+    height: 90%;
 }
 
 footer {

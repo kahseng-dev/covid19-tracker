@@ -27,32 +27,29 @@
     </header>
 
     <div class="dashboard">
-      <div class="geochart">
+      <div class="geo-chart">
         <select class="custom-select">
           <option selected value="world">World</option>
         </select>
-
-        <div id="regions_div" style="width: 830px; height: 670px;"></div>
+        <div id="regionMap"></div>
       </div>
 
-      <div class="stats-container">
-        <div class="histogram">
+      <div class="right-graphs">
+        <div class="bar-chart">
           <h1>Daily New Cases</h1>
-          <p>Cases per day</p>
-          <div id="columnchart_values" style="width: 750px; height: 260px;"></div>
+          <p>Last 9 days</p>
+          <div id="barChart"></div>
         </div>
 
-        <div class="total-stats-group">
-          <div class="piechart">
-            <h1>Total Cases</h1>
-            <p>Pie Chart</p>
-            <div id="piechart" style="width: 220px; height: 320px;"></div>
+        <div class="total-stats">
+          <div class="pie-chart">
+            <h1>Total Case Composition</h1>
+            <div id="pieChart"></div>
           </div>
 
-          <div class="linear">
-            <h1>Total Cases</h1>
-            <p>Linear Scale</p>
-            <div id="line_chart" style="width: 500px; height: 320px"></div>
+          <div class="line-chart">
+            <h1>Total Case Timeline</h1>
+            <div id="lineChart"></div>
           </div>
         </div>
       </div>

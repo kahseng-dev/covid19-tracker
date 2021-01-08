@@ -44,7 +44,7 @@ function drawRegionMap() { // geo chart function
             legend: {textStyle: {color:'#888', auraColor: 'none', fontSize: 16}}
         };
         
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        var chart = new google.visualization.GeoChart(document.getElementById('regionMap'));
         chart.draw(dataTable, options);
     });
 }
@@ -69,11 +69,11 @@ function drawBarChart() { // bar chart function
             colors: ['#E7EB90'],
             legend: 'none',
             backgroundColor: 'none',
-            hAxis: {format: 'MMM d yyyy', textStyle: {color: '#fff'}, gridlineColor: 'none', minorGridlines: {count: 0}},
+            hAxis: {format: 'MMM d', textStyle: {color: '#fff'}, gridlineColor: 'none', minorGridlines: {count: 0}},
             vAxis: {format: 'short', textStyle: {color: '#fff'}, gridlineColor: '#444', minorGridlines: {color: 'none'}},
         };
 
-        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+        var chart = new google.visualization.ColumnChart(document.getElementById("barChart"));
         chart.draw(dataTable, options);
     });
 }
@@ -90,11 +90,12 @@ function drawPieChart() { // pie chart function
         ]);
 
         var options = {
-            chartArea: {width: '90%', height: '90%'},
+            pieHole: 0.4,
+            chartArea: {width: '80%', height: '90%'},
             backgroundColor: 'none',
             legend: 'none',
             tooltip: {textStyle: {fontSize: 12}},
-            pieSliceTextStyle: {fontSize: 16},
+            pieSliceTextStyle: {fontSize: 14},
             slices: {
                 0: {color: '#EC7505'},
                 1: {color: '#5FAD41'},
@@ -102,7 +103,7 @@ function drawPieChart() { // pie chart function
             }
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
         chart.draw(dataTable, options);
     });
 }
@@ -124,13 +125,13 @@ function drawLineChart() { // line chart function
         var options = {
             backgroundColor: 'none',
             legend: 'none',
-            chartArea: {width: '75%', height: '80%'},
+            chartArea: {width: '70%', height: '80%'},
             colors: ['#E7EB90'],
             hAxis: {title: 'Date', format: 'MMM d', titleTextStyle: {color: '#fff'}, textStyle: {color: '#fff'}, gridlineColor: '#333', minorGridlines: {color: 'none',  count: 0}},
             vAxis: {title: 'Cases', format: 'short', titleTextStyle: {color: '#fff'}, textStyle: {color: '#fff'}, gridlineColor: '#333', minorGridlines: {color: '#333'}},
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById('lineChart'));
         chart.draw(dataTable, options);
     });
 }
