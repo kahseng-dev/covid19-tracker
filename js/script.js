@@ -1,5 +1,3 @@
-let url = 'https://api.covid19api.com/summary';
-
 function findInfectedCountries(data) {
     var noInfectedCountries = 0;
     for (c of data.Countries) {
@@ -10,6 +8,8 @@ function findInfectedCountries(data) {
     }
     return noInfectedCountries;
 }
+
+let url = 'https://api.covid19api.com/summary';
 
 $(document).ready(function() {
     fetch(url)

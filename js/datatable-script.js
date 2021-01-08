@@ -1,5 +1,3 @@
-let url = 'https://api.covid19api.com/summary';
-
 function displayTable(dataList) {
     $(".entries").html(``);
     $(".entries").append(
@@ -31,6 +29,8 @@ function displayTable(dataList) {
         );
     }
 }
+
+let url = 'https://api.covid19api.com/summary';
 
 $(document).ready(function() {
     fetch(url)
