@@ -41,9 +41,9 @@ function findInfectedCountries() {
 }
 
 function loadAritcles() { // Noted: please use localhost to view.
-    const apiKey = '9cab93aa8f544d4bb8ec422c57e2a1d5';
+    const apiKey = '48bca8c56bd4859a1472b7a8218c0053';
     let topic = "COVID-19";
-    var url = `http://newsapi.org/v2/everything?q=${topic}&pageSize=10&apiKey=${apiKey}`;
+    var url = `https://gnews.io/api/v4/search?q="${topic}"&lang=en&token=${apiKey}`;
     
     fetch(url)
     .then(response => response.json())
@@ -52,7 +52,7 @@ function loadAritcles() { // Noted: please use localhost to view.
         articles.map((a) => { // append news article cards into news section
             $(".news-group").append(`
                 <div class="card">
-                    <div class="center-cropped" style="background-image: url('${a.urlToImage}');"></div>
+                    <div class="center-cropped" style="background-image: url('${a.image}');"></div>
                     <div class="card-body">
                         <h5 class="card-title">${a.title}</h5>
                         <p class="card-text">${a.description}</p>
@@ -61,8 +61,7 @@ function loadAritcles() { // Noted: please use localhost to view.
                 </div>
             `);
         });
-    })
-    .catch(err => console.log("Please use localhost to view News"))
+    });
 }
 
 $(document).ready(function() { // start of main program
