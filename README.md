@@ -67,7 +67,7 @@ Other Features:
 - [Adobe Photoshop](https://www.adobe.com/products/photoshop.html): To edit image assets.
 
 ## Testing ##
-- Tested Website both on Localhost, Live server and Github pages
+- Tested Website on Localhost, Live server and Github pages
 - Tested responsiveness on different window/mobile screen sizes.
 - Tested on Chrome, Firefox and Brave Browser.
 - Pass validators:
@@ -90,19 +90,19 @@ Other Features:
 - [Caffeine Monitor](https://cm.buildconf.com/): Some design elements are inspired by Caffeine Monitor.
 - [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/): Used bootstrap templates to aid in development.
 - [w3schools](https://www.w3schools.com/): For general HTML, CSS, JavaScript and JQuery guides.
-- [sort Array Method | JavaScript Tutorial](https://www.youtube.com/watch?v=RsFBsBep-hA)
-- [Learn Fetch API In 6 Minutes](https://www.youtube.com/watch?v=cuEtnrL9-H0)
-- [Build a COVID-19 Tracker Application - React JS Project (Hooks, Material UI, Charts js)](https://www.youtube.com/watch?v=khJlrj3Y6Ls): Inspired for this project
-- [Coronavirus Cases : Get COVID-19's Data Using API In Javascript & Display On A Website (HTML,BS,JS)](https://www.youtube.com/watch?v=VneeLm_haLI)
-- [How to style Select Menus - CSS Tutorial](https://www.youtube.com/watch?v=8cExRlT--Zc)
-- [JavaScript Search Bar](https://www.youtube.com/watch?v=wxz5vJ1BWrc)
-- [Async JS Crash Course - Callbacks, Promises, Async Await](https://www.youtube.com/watch?v=PoRJizFvM7s)
-- [The Async Await Episode I Promised](https://www.youtube.com/watch?v=vn3tm0quoqE)
-- [1.4: JSON - Working with Data and APIs in JavaScript](https://www.youtube.com/watch?v=uxf0--uiX0I)
-- [Javascript - How To Get Value Of Selected Radio Button In JS [ with source code ]](https://www.youtube.com/watch?v=uzwUBDQfpkU)
-- [#21 Taking Input from Radiobuttons in Javascript](https://www.youtube.com/watch?v=r3Oc4IUP0XI)
-- [JavaScript Fetch API: Interacting With The News API](https://www.youtube.com/watch?v=fOSGazKFRYE)
-- [How to Setup localhost Server in Windows 10 Create Local Host Server IIS Server Windows 10](https://www.youtube.com/watch?v=gpSK0CbSu2g)
-- [Insert comma seperators](https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript)
+- [sort Array Method JS Tutorial](https://www.youtube.com/watch?v=RsFBsBep-hA)
+- [Fetch API JS Tutorial](https://www.youtube.com/watch?v=cuEtnrL9-H0)
+- [COVID-19 Tracker Application Project](https://www.youtube.com/watch?v=khJlrj3Y6Ls): Used as inspiration for this project.
+- [Coronavirus Case Website Project](https://www.youtube.com/watch?v=VneeLm_haLI): Used as inspiration for this project.
+- [Styling Selector Menus CSS Tutorial](https://www.youtube.com/watch?v=8cExRlT--Zc)
+- [JS Search Bar Tutorial](https://www.youtube.com/watch?v=wxz5vJ1BWrc)
+- [Async JS Crash Course](https://www.youtube.com/watch?v=PoRJizFvM7s)
+- [Async, Await and Promises Tutorial](https://www.youtube.com/watch?v=vn3tm0quoqE)
+- [Working with Data and APIs in JS Tutorial](https://www.youtube.com/watch?v=uxf0--uiX0I)
+- [How To Get Value Of Selected Radio Button In JS Tutorial](https://www.youtube.com/watch?v=uzwUBDQfpkU)
+- [Taking Input from Radiobuttons in JS Tutorial](https://www.youtube.com/watch?v=r3Oc4IUP0XI)
+- [News API Tutorial](https://www.youtube.com/watch?v=fOSGazKFRYE)
+- [How to Setup localhost Server on Windows 10 Tutorial](https://www.youtube.com/watch?v=gpSK0CbSu2g)
+- [Insert comma as decimal seperators](https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript)
 - [Google chart update on window resize](https://stackoverflow.com/questions/8950761/google-chart-redraw-scale-on-window-resize)
 - [Pressing Enter in input field refreshes the page](https://stackoverflow.com/questions/2215462/html-form-when-i-hit-enter-it-refreshes-page)
