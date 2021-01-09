@@ -61,7 +61,7 @@ Other Features:
 - [HTML](https://whatwg.org/): To create content layer.
 - [CSS](https://www.w3.org/): To create presentation layer for general styling of website.
 - [JavaScript](https://www.javascript.com/): To create interactive layer.
-- [JQuery](https://jquery.com/): Used to fetch API data.
+- [JQuery](https://jquery.com/): JS library used for event handling and html manipulation.
 - [Visual Studio Code](https://code.visualstudio.com/): Integrated development environment used.
 - [Adobe XD](https://www.adobe.com/products/xd.html): To create and plan the wireframe of the website.
 - [Adobe Photoshop](https://www.adobe.com/products/photoshop.html): To edit image assets.
