@@ -56,7 +56,6 @@ body {
     display: flex;
     width: 50%;
     height: 760px;
-    display: flex;
     flex-direction: column;
     padding: 24px;
     color: #E7EB90;
@@ -114,4 +113,103 @@ footer {
 
 footer p { 
     margin: 0;
+}
+
+@media only screen and (max-width: 1200px) {
+    .dashboard {
+        flex-direction: column;
+    }
+
+    .geo-chart {
+        height: 700px;
+        width: 100%;
+        padding: 24px;
+        border-right: none;
+    }
+    
+    .right-graphs {
+        padding: 0;
+        width: 100%;
+        margin-bottom: 24px;
+    }
+
+    .bar-chart {
+        padding: 24px;
+        margin: 0;
+        overflow-x: hidden;
+    }
+
+    #barChart {
+        width: 110%;
+    }
+    
+    #lineChart {
+        width: 110%;
+    }
+
+    .line-chart {
+        overflow-x: hidden;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .geo-chart {
+        height: 600px;
+    }
+
+    .right-graphs {
+        height: 100%;
+    }
+    
+    .bar-chart {
+        text-align: center;
+        height: 500px;
+    }
+
+    #barChart {
+        width: 105%;
+    }
+
+    .total-stats {
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .pie-chart {
+        width: 100%;
+        margin: 0;
+        padding: 24px;
+        height: 500px;
+    }
+
+    .line-chart {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+        padding: 24px;
+        height: 500px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .geo-chart {
+        padding: 12px;
+        height: 350px;
+    }
+    
+    .bar-chart {
+        padding: 12px;
+        height: 300px;
+    }
+
+    .pie-chart {
+        padding: 12px;
+        height: 300px;
+    }
+
+    .line-chart {
+        padding: 12px;
+        height: 300px;
+    }
 }
