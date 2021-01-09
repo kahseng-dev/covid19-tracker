@@ -141,6 +141,7 @@
 
 .source-img {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     color: #333;
 }
@@ -217,10 +218,6 @@ footer p {
         color: #fff;
         background-color: #C84630;
         padding: 32px;
-    }
-
-    .source-img {
-        flex-wrap: wrap;
     }
 }
 
