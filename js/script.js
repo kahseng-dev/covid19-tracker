@@ -7,18 +7,18 @@ $(document).ready(function() {
 });
 
 function findInfectedCountries() {
-    var infectedCountriesNum = 0;
+    var infectedCountries = 0;
 
     fetch("https://covid19-api.org/api/status")
     .then(response => response.json())
     .then(function(data) {
-        data.forEach(function(e) {
-            var activeCases = e.cases - (e.deaths + e.recovered);
+        data.map((d) => {
+            var activeCases = d.cases - (d.deaths + d.recovered);
             if (activeCases >= 1) {
-                infectedCountriesNum += 1;
+                infectedCountries += 1;
             }
         });
-        $("#country-data").html(infectedCountriesNum);
+        $("#country-data").html(infectedCountries);
         $("#total-country").html(data.length);
     });
 }
