@@ -88,7 +88,13 @@ function displayTotal(array) {
     $(".casesTab").html("Total Cases");
     $(".deathsTab").html("Total Deaths");
     $(".recoveredTab").html("Total Recovered");
-    $(".activeCase").show();
+    
+    if ($(window).width() < 580) {
+        $(".activeCase").hide();
+    } else {
+        $(".activeCase").show();
+    }
+
     $("#dataDate").html(new Date(array[0].last_update).toDateString())
    
     array.map((i) => {
@@ -100,7 +106,7 @@ function displayTotal(array) {
             <td class="cases">${i.cases}</td>
             <td class="deaths">${i.deaths}</td>
             <td class="recovered">${i.recovered}</td>
-            <td class="activeData">${i.active}</td>
+            <td class="activeCase">${i.active}</td>
         </tr>
         `)
     })
@@ -113,14 +119,12 @@ function loadNew() {
     $(".recoveredTab").html("New Recovered");
     $(".activeCase").hide();
 
+    var countryArray = [];
+    Object.assign(world, {new_cases: 0}, {new_deaths: 0}, {new_recovered: 0});
+
     fetch("https://covid19-api.org/api/diff")
     .then(response => response.json())
     .then(diffData => {
-        var countryArray = [];
-        world['new_cases'] = 0;
-        world['new_deaths'] = 0;
-        world['new_recovered'] = 0;
-
         dataArray.map((c) => {
             diffData.map((d) => {
                 if (c.country == d.country) {
@@ -128,11 +132,11 @@ function loadNew() {
                     c['new_deaths'] = d.new_deaths;
                     c['new_recovered'] = d.new_recovered;
                     
+                    countryArray.push(c);
+
                     world['new_cases'] += d.new_cases;
                     world['new_deaths'] += d.new_deaths;
                     world['new_recovered'] += d.new_recovered;
-
-                    countryArray.push(c);
                 }
             })
         })
