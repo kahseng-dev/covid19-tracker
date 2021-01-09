@@ -1,6 +1,6 @@
 async function initData() { // asynchronous function to initialize data
     "use strict";
-    var timelineRes = await fetch("https://covid19-api.org/api/timeline"); // fetch timeline data
+    var timelineRes = await fetch("https://covid19-api.org/api/timeline"); // fetch timeline data. COVID-19 API: https://covid19-api.org/
     var timelineData = await timelineRes.json();
     world = { // make a world object
         country: "World",
@@ -12,9 +12,9 @@ async function initData() { // asynchronous function to initialize data
         active: timelineData[0].total_cases - (timelineData[0].total_deaths + timelineData[0].total_recovered)
     };
     
-    var statusRes = await fetch("https://covid19-api.org/api/status"); // get status
+    var statusRes = await fetch("https://covid19-api.org/api/status"); // get status. COVID-19 API: https://covid19-api.org/
     var statusData = await statusRes.json();
-    var countriesRes = await fetch("https://covid19-api.org/api/countries"); // get countries
+    var countriesRes = await fetch("https://covid19-api.org/api/countries"); // get countries. COVID-19 API: https://covid19-api.org/
     var countriesData = await countriesRes.json();
     var countryArray = [];
 
@@ -66,7 +66,7 @@ function loadNew() { // load new data
     countryArray = [];
     Object.assign(world, {new_cases: 0}, {new_deaths: 0}, {new_recovered: 0}); // add new cases, deaths and recovered into the world object
 
-    fetch("https://covid19-api.org/api/diff") // get difference from yesterday data
+    fetch("https://covid19-api.org/api/diff") // get difference from yesterday data. COVID-19 API: https://covid19-api.org/
     .then(response => response.json())
     .then(diffData => {
         dataArray.map((c) => {

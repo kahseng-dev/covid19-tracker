@@ -11,10 +11,10 @@ async function drawRegionMap() { // geo chart function
         legend: {textStyle: {color: '#888', auraColor: 'none', fontSize: 16}}
     };
 
-    var statusRes = await fetch("https://covid19-api.org/api/status"); // get status data
+    var statusRes = await fetch("https://covid19-api.org/api/status"); // get status data. COVID-19 API: https://covid19-api.org/
     var statusData = await statusRes.json();
 
-    var countriesRes = await fetch("https://covid19-api.org/api/countries"); // get countries data
+    var countriesRes = await fetch("https://covid19-api.org/api/countries"); // get countries data. COVID-19 API: https://covid19-api.org/
     var countriesData = await countriesRes.json();
 
     var tableArray = [['Country', 'Cases', 'Active']]; // load data into geo chart
@@ -46,10 +46,14 @@ function initTimelineURL() { // find timeline data
 
 function updateChart() {
     $(`.custom-select option[value=${searchRegionCode}]`).attr('selected', 'selected');
-    google.charts.setOnLoadCallback(drawRegionMap); // call geo chart function
-    google.charts.setOnLoadCallback(drawBarChart); // call bar chart function
-    google.charts.setOnLoadCallback(drawPieChart); // call pie chart function
-    google.charts.setOnLoadCallback(drawLineChart); // call line chart function
+     // Google Visualisation Geo Chart: https://developers.google.com/chart/interactive/docs/gallery/geochart
+    google.charts.setOnLoadCallback(drawRegionMap);
+     // Google Visualisation Column Chart: https://developers.google.com/chart/interactive/docs/gallery/columnchart
+    google.charts.setOnLoadCallback(drawBarChart);
+     // Google Visualisation Pie Chart: https://developers.google.com/chart/interactive/docs/gallery/piechart#donut
+    google.charts.setOnLoadCallback(drawPieChart);
+     // Google Visualisation Line Chart: https://developers.google.com/chart/interactive/docs/gallery/linechart
+    google.charts.setOnLoadCallback(drawLineChart);
 }
 
 function drawBarChart() { // bar chart function

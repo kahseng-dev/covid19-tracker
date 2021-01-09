@@ -1,6 +1,6 @@
 function loadData() {
     "use strict";
-    fetch("https://covid19-api.org/api/timeline") // fetch timeline data
+    fetch("https://covid19-api.org/api/timeline") // fetch timeline data. COVID-19 API: https://covid19-api.org/
     .then(response => response.json())
     .then(function(data) {
         $("#data-date").html(new Date(data[0].last_update).toDateString()); // insert the date of data
@@ -25,7 +25,7 @@ function loadData() {
 
 function findInfectedCountries() {
     var infectedCountries = 0;
-    fetch("https://covid19-api.org/api/status") // fetch the status data
+    fetch("https://covid19-api.org/api/status") // fetch the status data. COVID-19 API: https://covid19-api.org/
     .then(response => response.json())
     .then(function(data) {
         data.map((d) => { 
@@ -43,7 +43,7 @@ function findInfectedCountries() {
 function loadAritcles() { // Noted: please use localhost to view.
     const apiKey = '48bca8c56bd4859a1472b7a8218c0053';
     let topic = "COVID-19";
-    var url = `https://gnews.io/api/v4/search?q="${topic}"&lang=en&token=${apiKey}`;
+    var url = `https://gnews.io/api/v4/search?q="${topic}"&lang=en&token=${apiKey}`; // GNews: https://gnews.io/
     
     fetch(url)
     .then(response => response.json())
