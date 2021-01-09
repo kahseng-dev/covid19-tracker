@@ -17,16 +17,21 @@
     margin-right: .5em;
 }
 
-form {
+.title-group {
     display: flex;
-    justify-content: flex-end;
-    padding: 32px 32px 0 32px;
+    justify-content: space-between;
+    align-items: center;
     background-color: #444;
+    padding: 32px 32px 0 32px;
+}
+
+.title {
+    color: #E7EB90;
 }
 
 .table-container {
     background-color: #444;
-    padding: 32px;
+    padding: 24px 32px 32px 32px;
 }
 
 .table {

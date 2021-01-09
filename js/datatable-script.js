@@ -5,7 +5,7 @@ $(document).ready(function() {
     loadData();
     let count = 0;
 
-    $(".headerButtons").change(function(e) { count = 0; }) // reset count when user switches to another tab
+    $(".headerButtons").change(function(e) { count = 0; }) // reset count when user switches to another table tab
 
     $("#countryButton").click(function() { count = checkSort("byCountry", count) })
     $("#countryCodeButton").click(function() { count = checkSort("byCountryCode", count) })
@@ -13,6 +13,7 @@ $(document).ready(function() {
     $("#totalDeathsButton").click(function() { count = checkSort("byDeaths", count) })
     $("#totalRecoveredButton").click(function() { count = checkSort("byRecovered", count) })
     $("#activeCaseButton").click(function() { count = checkSort("byActive", count); })
+    
 
     searchBar.addEventListener('keyup', (e) => {
         const searchString = e.target.value.toLowerCase();
@@ -25,6 +26,7 @@ $(document).ready(function() {
         })
         displayData(filteredCountries);
     })
+    $("form").submit(function() { return false; }); // disable refresh when user press enter.
 });
 
 function checkSort(order, count) {
@@ -58,6 +60,9 @@ async function loadData() {
 }
 
 function displayData(array) {
+    var dataDate = document.getElementById("dataDate");
+    dataDate.innerHTML += (new Date(array[0].last_update).toDateString());
+    
     entries.innerHTML = "";
     const htmlString = array.map((data) => {
         return `
