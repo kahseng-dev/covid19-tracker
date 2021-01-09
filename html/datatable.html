@@ -29,7 +29,7 @@
     <div class="title-group">
       <div class="title">
         <h1>Data Table</h1>
-        <p id="dataDate">Last updated: </p>
+        <p>Last updated: <span id="dataDate"></span></p>
       </div>
       <form class="form-inline">
         <div class="col-auto">
@@ -42,38 +42,38 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>#</th>
-            <th>
+            <th class="index">#</th>
+            <th class="countryName">
               <input type="radio" id="countryButton" name="header" class="headerButtons">
               <label class="btn-block" for="countryButton">
                 Country Name
               </label>
             </th>
-            <th>
+            <th class="countryCode">
               <input type="radio" id="countryCodeButton" name="header" class="headerButtons">
               <label class="btn-block" for="countryCodeButton">
                 Country Code
               </label>
             </th>
-            <th>
+            <th class="totalCase">
               <input type="radio" id="totalCaseButton" name="header" class="headerButtons">
               <label class="btn-block" for="totalCaseButton">
                 Total Cases
               </label>
             </th>
-            <th>
+            <th class="totalDeaths">
               <input type="radio" id="totalDeathsButton" name="header" class="headerButtons">
               <label class="btn-block" for="totalDeathsButton">
                 Total Deaths
               </label>
             </th>
-            <th>
+            <th class="totalRecovered">
               <input type="radio" id="totalRecoveredButton" name="header" class="headerButtons">
               <label class="btn-block" for="totalRecoveredButton">
                 Total Recovered
               </label>
             </th>
-            <th>
+            <th class="activeCases">
               <input type="radio" id="activeCaseButton" name="header" class="headerButtons">
               <label class="btn-block" for="activeCaseButton">
                 Active Cases
@@ -89,7 +89,8 @@
       <p>Created by Chew Kah Seng</p>
     </footer>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   <script src="../js/datatable-script.js"></script>
 </html>
