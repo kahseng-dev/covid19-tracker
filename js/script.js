@@ -1,16 +1,16 @@
 function loadData() {
     "use strict";
-    fetch("https://covid19-api.org/api/timeline")
+    fetch("https://covid19-api.org/api/timeline") // fetch timeline data
     .then(response => response.json())
     .then(function(data) {
-        $("#data-date").html(new Date(data[0].last_update).toDateString()); // label the date of data
+        $("#data-date").html(new Date(data[0].last_update).toDateString()); // insert the date of data
         
         // display total cases
-        $("#confirmed-data").html(`${data[0].total_cases}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        $("#confirmed-data").html(`${data[0].total_cases}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
         $("#deaths-data").html(`${data[0].total_deaths}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#recovered-data").html(`${data[0].total_recovered}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         
-        // display new cases from previous entry
+        // display new cases from the difference of the previous day entry
         $("#new-confirmed-data").html(`${data[0].total_cases - data[1].total_cases}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#new-deaths-data").html(`${data[0].total_deaths - data[1].total_deaths}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         $("#new-recovered-data").html(`${data[0].total_recovered - data[1].total_recovered}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
@@ -25,22 +25,22 @@ function loadData() {
 
 function findInfectedCountries() {
     var infectedCountries = 0;
-    fetch("https://covid19-api.org/api/status")
+    fetch("https://covid19-api.org/api/status") // fetch the status data
     .then(response => response.json())
     .then(function(data) {
-        data.map((d) => {
-            var activeCases = d.cases - (d.deaths + d.recovered);
-            if (activeCases >= 1) infectedCountries += 1;
+        data.map((d) => { 
+            var activeCases = d.cases - (d.deaths + d.recovered); // finding if there is atleast one active case in a country
+            if (activeCases >= 1) infectedCountries += 1; // if there is, increase infected countries variable by 1
         });
 
-        $("#country-data").html(infectedCountries);
-        $("#total-country").html(data.length);
+        $("#country-data").html(infectedCountries); // insert infected countries
+        $("#total-country").html(data.length); // insert out of total number of countries given by api data
     });
 
-    loadAritcles();
+    loadAritcles(); // move to load article function
 }
 
-function loadAritcles() { // use localhost to view.
+function loadAritcles() { // Noted: please use localhost to view.
     const apiKey = '9cab93aa8f544d4bb8ec422c57e2a1d5';
     let topic = "COVID-19";
     var url = `http://newsapi.org/v2/everything?q=${topic}&pageSize=10&apiKey=${apiKey}`;
@@ -49,7 +49,7 @@ function loadAritcles() { // use localhost to view.
     .then(response => response.json())
     .then(function(data) {
         var articles = data.articles;
-        articles.map((a) => {
+        articles.map((a) => { // append news article cards into news section
             $(".news-group").append(`
                 <div class="card">
                     <div class="center-cropped" style="background-image: url('${a.urlToImage}');"></div>
@@ -65,10 +65,10 @@ function loadAritcles() { // use localhost to view.
     .catch(err => console.log("Please use localhost to view News"))
 }
 
-$(document).ready(function() {
-    loadData();
+$(document).ready(function() { // start of main program
+    loadData(); // inital load data on web load
     
-    $("#updateData").on("click", function() { // when user clicks refresh button, reload data.
+    $("#updateData").on("click", function() { // if user clicks the refresh button, reload data.
         loadData();
     });
 });

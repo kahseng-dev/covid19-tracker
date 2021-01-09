@@ -2,7 +2,7 @@ async function drawRegionMap() { // geo chart function
     "use strict";
     var chart = new google.visualization.GeoChart(document.getElementById('regionMap'));
 
-    var options = {
+    var options = { // customise options for geo chart
         region: searchRegionCode,
         enableRegionInteractivity: 'true',
         backgroundColor: 'none',
@@ -11,36 +11,36 @@ async function drawRegionMap() { // geo chart function
         legend: {textStyle: {color: '#888', auraColor: 'none', fontSize: 16}}
     };
 
-    var statusRes = await fetch("https://covid19-api.org/api/status");
+    var statusRes = await fetch("https://covid19-api.org/api/status"); // get status data
     var statusData = await statusRes.json();
 
-    var countriesRes = await fetch("https://covid19-api.org/api/countries");
+    var countriesRes = await fetch("https://covid19-api.org/api/countries"); // get countries data
     var countriesData = await countriesRes.json();
 
-    var tableArray = [['Country', 'Cases', 'Active']];
+    var tableArray = [['Country', 'Cases', 'Active']]; // load data into geo chart
     statusData.map((s) => {
         countriesData.map((c) => {
             if (c.alpha2 == s.country) tableArray.push([{v:s.country, f:`${c.name} (${s.country})`}, s.cases, s.cases - (s.deaths + s.recovered)]);
         });
     });
     
-    chart.draw(google.visualization.arrayToDataTable(tableArray), options);
-    google.visualization.events.addListener(chart, 'select', function() {
+    chart.draw(google.visualization.arrayToDataTable(tableArray), options); // draw chart
+    google.visualization.events.addListener(chart, 'select', function() { // if user selects a country, go into the country and update the charts
         var selection = chart.getSelection();
         searchRegionCode = tableArray[selection[0].row + 1][0].v;
         updateChart();
     });
 }
 
-async function addCountriesToSelect() {
+async function addCountriesToSelect() { // add countries to select options
     var response = await fetch("https://covid19-api.org/api/countries");
     var data = await response.json();
     data.map((d) => $(".custom-select").append(`<option value="${d.alpha2}">${d.name} (${d.alpha2})</option>`));
 }
 
-function initTimelineURL() {
+function initTimelineURL() { // find timeline data
     var url = "https://covid19-api.org/api/timeline";
-    if (searchRegionCode != 'world') url += ("/" + searchRegionCode);
+    if (searchRegionCode != 'world') url += ("/" + searchRegionCode); // if searchRegionCode is not world, find data for search region country
     return url;
 }
 
@@ -56,10 +56,10 @@ function drawBarChart() { // bar chart function
     var dataTable = new google.visualization.DataTable();
     var chart = new google.visualization.ColumnChart(document.getElementById("barChart"));
     
-    dataTable.addColumn('date', 'Date');
-    dataTable.addColumn('number', 'Cases');
+    dataTable.addColumn('date', 'Date'); // set Date column as date
+    dataTable.addColumn('number', 'Cases'); // set Cases column as numeric
 
-    var options = {
+    var options = { // customise options for bar chart
         chartArea: {width: '80%', height: '80%'},
         colors: ['#E7EB90'],
         legend: 'none',
@@ -106,7 +106,7 @@ function drawBarChart() { // bar chart function
 function drawPieChart() { // pie chart function
     var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
 
-    var options = {
+    var options = { // customise options for pie chart
         chartArea: {width: '80%', height: '90%'},
         backgroundColor: 'none',
         legend: 'none',
@@ -141,7 +141,7 @@ function drawLineChart() { // line chart function
     dataTable.addColumn('date', 'Date');
     dataTable.addColumn('number', 'Cases');
 
-    var options = {
+    var options = { // customise options for line chart
         backgroundColor: 'none',
         legend: 'none',
         chartArea: {width: '70%', height: '80%'},
