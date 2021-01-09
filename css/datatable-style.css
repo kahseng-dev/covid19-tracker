@@ -4,6 +4,10 @@
     border-bottom: 1px solid #444;
 }
 
+.navbar-brand img {
+    margin-right: .5em;
+}
+
 .navbar-dark .navbar-brand {
     display: flex;
     align-items: center;
@@ -11,10 +15,6 @@
     font-size: 24px;
     color: #E7EB90;
     background-color: #222;
-}
-
-.navbar-brand img {
-    margin-right: .5em;
 }
 
 .title-group {

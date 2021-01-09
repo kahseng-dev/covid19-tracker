@@ -4,6 +4,10 @@
     border-bottom: 1px solid #444;
 }
 
+.navbar-brand img {
+    margin-right: .5em;
+}
+
 .navbar-dark .navbar-brand {
     display: flex;
     align-items: center;
@@ -11,10 +15,6 @@
     font-size: 24px;
     color: #E7EB90;
     background-color: #222;
-}
-
-.navbar-brand img {
-    margin-right: .5em;
 }
 
 .summary-group {
@@ -35,6 +35,17 @@
     font-family: Helvetica, Arial, sans-serif;
 }
 
+.stat {
+    font-size: 64px;
+    font-weight: bold;
+    color: #E7EB90;
+}
+
+.sub-stat {
+    font-weight: bold;
+    color: #E7EB90;
+}
+
 .confirmed-cases {
     padding-right: 3%;
     border-right: 1px solid #444;
@@ -47,17 +58,6 @@
 .recovered-cases {
     padding-left: 3%;
     border-left: 1px solid #444;
-}
-
-.stat {
-    font-size: 64px;
-    font-weight: bold;
-    color: #E7EB90;
-}
-
-.sub-stat {
-    font-weight: bold;
-    color: #E7EB90;
 }
 
 .active-cases {
@@ -225,17 +225,17 @@ footer p {
 }
 
 @media only screen and (max-width: 400px) {
-    .navbar-brand img {
-        width: 32px;
-        height: 32px;
-    }
-
     .navbar-brand {
         margin: 0;
     }
 
     .navbar-dark .navbar-brand {
         font-size: 16px;
+    }
+
+    .navbar-brand img {
+        width: 32px;
+        height: 32px;
     }
 
     .cases-group h1 {
@@ -276,5 +276,4 @@ footer p {
     .card-text {
         -webkit-line-clamp: 2;
     }
-    
 }
