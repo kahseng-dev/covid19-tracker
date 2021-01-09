@@ -36,8 +36,6 @@ $(document).ready(function() {
     $("form").submit(function() { return false; }); // disable refresh when user press enter.
 
     var count = 0;
-    $(".headerButtons").change(function() { count = 0; }); // reset count when user switches to another table tab
-
     $("#countryButton").click(function() { count = checkSort("byCountry", count) });
     $("#countryCodeButton").click(function() { count = checkSort("byCountryCode", count) });
     $("#caseButton").click(function() { count = checkSort("byCase", count) });
