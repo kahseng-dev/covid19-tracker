@@ -11,7 +11,7 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark"> <!-- Navbar -->
         <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="Logo" width="42" height="42">COVID-19 Tracker</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -27,13 +27,13 @@
     </header>
 
     <div class="summary-group">
-      <div class="title">
+      <div class="title"> <!-- Title -->
         <h1>COVID-19 Coronavirus Pandemic at a Glance</h1>
         <p>Last updated: <span id="data-date"></span></p>
         <button type="button" id="updateData" class="btn btn-outline-light">Refresh</button>
       </div>
 
-      <div class="cases-group">
+      <div class="cases-group"> <!-- Basic statistics -->
         <div class="confirmed-cases">
           <h1 id="confirmed-data" class="stat">...</h1>
           <h2 class="sub-stat">+<span id="new-confirmed-data">...</span></h2>
@@ -51,6 +51,7 @@
         </div>
       </div>
 
+      <!-- Additional statistics -->
       <div class="active-cases">
         <h1>Global Active Cases: </h1>
         <h2 id="active-data" class="stat">...</h2>
@@ -61,18 +62,19 @@
       </div>
     </div>
 
-    <div class="news"> <!-- Please use local host to view news -->
+    <!-- News articles -->
+    <div class="news">
       <h1>News</h1>
-      <div class="news-group"></div>
+      <div class="news-group"></div> <!-- Please use local host to view news -->
     </div>
 
-    <div class="info">
+    <div class="info"> <!-- Short covid information section -->
       <h1>What is Coronavirus?</h1>
       <p>What are the Symptoms? and How do we prevent it?</p>
       <a href="https://www.who.int/health-topics/coronavirus#tab=tab_1" target="_blank" class="btn btn-outline-light">View More</a>
     </div>
 
-    <div class="sources">
+    <div class="sources"> <!-- website source and credit section -->
       <h1>Sources</h1>
       <div class="source-img">
         <div>
@@ -94,10 +96,11 @@
       </div>
     </div>
 
-    <footer>
+    <footer> <!-- footer -->
       <p>Created by Chew Kah Seng</p>
     </footer>
 
+    <!-- scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>

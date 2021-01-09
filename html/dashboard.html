@@ -11,7 +11,7 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark"> <!-- Navbar -->
         <a class="navbar-brand" href="../index.html"><img src="../img/logo.png" alt="Logo" width="42" height="42">COVID-19 Tracker</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -27,28 +27,28 @@
     </header>
 
     <div class="dashboard">
-      <div class="geo-chart">
-        <select class="custom-select">
+      <div class="geo-chart"> <!-- World map -->
+        <select class="custom-select"> <!-- Country selector -->
           <option selected value="world">World</option>
         </select>
         <div id="regionMap"></div>
       </div>
 
       <div class="right-graphs">
-        <div class="bar-chart">
+        <div class="bar-chart"> <!-- Bar chart -->
           <h1>Daily New Cases</h1>
           <p>Last 9 days</p>
           <div id="barChart"></div>
         </div>
 
         <div class="total-stats">
-          <div class="pie-chart">
+          <div class="pie-chart"> <!-- Pie chart -->
             <h1>Total Case Composition</h1>
             <div id="pieChart"></div>
           </div>
 
-          <div class="line-chart">
-            <h1>Total Case Timeline</h1>
+          <div class="line-chart"> <!-- Line chart -->
+            <h1>Total Case Timeline</h1> 
             <div id="lineChart"></div>
           </div>
         </div>
@@ -56,9 +56,10 @@
     </div>
     
     <footer>
-      <p>Created by Chew Kah Seng</p>
+      <p>Created by Chew Kah Seng</p> <!-- footer -->
     </footer>
-    
+
+    <!-- scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
