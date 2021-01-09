@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link" href="../index.html">Summary</a>
-            <a class="nav-link active" href="data.html"><span class="sr-only">Data Table</span></a>
+            <a class="nav-link active" href="datatable.html"><span class="sr-only">Data Table</span></a>
             <a class="nav-link" href="dashboard.html">Dashboard</a>
           </div>
         </div>
@@ -31,7 +31,15 @@
         <h1>Data Table</h1>
         <p>Last updated: <span id="dataDate"></span></p>
       </div>
+      
       <form class="form-inline">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio" id="totalBtn" autocomplete="off" checked>
+          <label class="btn btn-outline-warning" for="totalBtn">Total</label>
+        
+          <input type="radio" class="btn-check" name="btnradio" id="newBtn" autocomplete="off">
+          <label class="btn btn-outline-warning" for="newBtn">New</label>
+        </div>
         <div class="col-auto">
           <input type="input" class="form-control" id="searchBar" placeholder="Search...">
         </div>
@@ -45,37 +53,37 @@
             <th class="index">#</th>
             <th class="countryName">
               <input type="radio" id="countryButton" name="header" class="headerButtons">
-              <label class="btn-block" for="countryButton">
+              <label class="btn-block countryTab" for="countryButton">
                 Country Name
               </label>
             </th>
             <th class="countryCode">
               <input type="radio" id="countryCodeButton" name="header" class="headerButtons">
-              <label class="btn-block" for="countryCodeButton">
+              <label class="btn-block codeTab" for="countryCodeButton">
                 Country Code
               </label>
             </th>
-            <th class="totalCase">
+            <th class="cases">
               <input type="radio" id="totalCaseButton" name="header" class="headerButtons">
-              <label class="btn-block" for="totalCaseButton">
+              <label class="btn-block casesTab" for="totalCaseButton">
                 Total Cases
               </label>
             </th>
-            <th class="totalDeaths">
+            <th class="deaths">
               <input type="radio" id="totalDeathsButton" name="header" class="headerButtons">
-              <label class="btn-block" for="totalDeathsButton">
+              <label class="btn-block deathsTab" for="totalDeathsButton">
                 Total Deaths
               </label>
             </th>
-            <th class="totalRecovered">
+            <th class="recovered">
               <input type="radio" id="totalRecoveredButton" name="header" class="headerButtons">
-              <label class="btn-block" for="totalRecoveredButton">
+              <label class="btn-block recoveredTab" for="totalRecoveredButton">
                 Total Recovered
               </label>
             </th>
-            <th class="activeCases">
+            <th class="active">
               <input type="radio" id="activeCaseButton" name="header" class="headerButtons">
-              <label class="btn-block" for="activeCaseButton">
+              <label class="btn-block activeTab" for="activeCaseButton">
                 Active Cases
               </label>
             </th>

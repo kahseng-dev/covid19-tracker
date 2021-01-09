@@ -29,6 +29,14 @@
     color: #E7EB90;
 }
 
+.form-inline {
+    display: flex;
+}
+
+.btn-group {
+    margin-right: 24px;
+}
+
 .table-container {
     background-color: #444;
     padding: 24px 32px 32px 32px;
@@ -104,7 +112,7 @@ footer p {
         display: none;
     }
 
-    .activeCases {
+    .active {
         display: none;
     }
 }
