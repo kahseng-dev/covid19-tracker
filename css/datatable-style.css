@@ -65,3 +65,61 @@ footer {
 footer p { 
     margin: 0;
 }
+
+@media only screen and (max-width: 580px) {
+    .title-group {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .form-control {
+        width: 460px;
+    }
+
+    .table-container {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .index {
+        display: none;
+    }
+
+    .countryCode {
+        display: none;
+    }
+}
+
+
+@media only screen and (max-width: 550px) {
+    .form-control {
+        width: 340px
+    }
+
+    .countryCode {
+        display: table-cell;
+    }
+
+    .countryName {
+        display: none;
+    }
+
+    .activeCases {
+        display: none;
+    }
+}
+
+
+@media only screen and (max-width: 360px) {
+    .form-control {
+        width: auto;
+    }
+
+    .table-container {
+        font-size: 11px;
+    }
+
+    .countryName {
+        display: none;
+    }
+}
