@@ -1,31 +1,5 @@
-let searchRegionCode = $(".custom-select option:selected").val() // used for selecting region
-
-$(document).ready(function() {
-    // load google visualization API
-    google.charts.load("current", {packages: ['corechart', 'geochart']});
-    updateChart(); // inital chart draw function
-
-    addCountriesToSelect(); // find country data from api and push it to select country option.
-    $(".custom-select").on("change", function(e) {
-        searchRegionCode = $(".custom-select option:selected").val();
-        updateChart();
-    });
-
-    // due to google chart limitation, it is not responsive. We need to redraw each time the window changes.
-    $(window).resize(function() { // create a trigger to resizeEnd event to set a timeout to reduce multiple resize updates
-        if (this.resizeTO) clearTimeout(this.resizeTO);
-        this.resizeTO = 
-            setTimeout(function() {
-                $(this).trigger('resizeEnd');
-            }, 200); // set to 200 ms
-    });
-    
-    $(window).on('resizeEnd', function() { // when resize is done, charts will update.
-        updateChart();
-    });
-});
-
 async function drawRegionMap() { // geo chart function
+    "use strict";
     var chart = new google.visualization.GeoChart(document.getElementById('regionMap'));
 
     var options = {
@@ -34,38 +8,34 @@ async function drawRegionMap() { // geo chart function
         backgroundColor: 'none',
         datalessRegionColor: '#888',
         colorAxis: {colors: ['#FAFFD8', '#FFBF46', '#EE6055', '#DE3C4B']},
-        legend: {textStyle: {color:'#888', auraColor: 'none', fontSize: 16}}
+        legend: {textStyle: {color: '#888', auraColor: 'none', fontSize: 16}}
     };
 
-    const statusRes = await fetch("https://covid19-api.org/api/status");
-    const statusData = await statusRes.json();
+    var statusRes = await fetch("https://covid19-api.org/api/status");
+    var statusData = await statusRes.json();
 
-    const countriesRes = await fetch("https://covid19-api.org/api/countries");
-    const countriesData = await countriesRes.json();
-    
+    var countriesRes = await fetch("https://covid19-api.org/api/countries");
+    var countriesData = await countriesRes.json();
+
     var tableArray = [['Country', 'Cases', 'Active']];
-
     statusData.map((s) => {
         countriesData.map((c) => {
-            if (c.alpha2 == s.country) {
-                tableArray.push([{v:s.country, f:`${c.name} (${s.country})`}, s.cases, s.cases - (s.deaths + s.recovered)])
-            }
-        })
-    })
-
+            if (c.alpha2 == s.country) tableArray.push([{v:s.country, f:`${c.name} (${s.country})`}, s.cases, s.cases - (s.deaths + s.recovered)]);
+        });
+    });
+    
     chart.draw(google.visualization.arrayToDataTable(tableArray), options);
-
     google.visualization.events.addListener(chart, 'select', function() {
         var selection = chart.getSelection();
         searchRegionCode = tableArray[selection[0].row + 1][0].v;
         updateChart();
-    })
+    });
 }
 
 async function addCountriesToSelect() {
-    const response = await fetch("https://covid19-api.org/api/countries");
-    const data = await response.json();
-    data.map((d) => $(".custom-select").append(`<option value="${d.alpha2}">${d.name} (${d.alpha2})</option>`))
+    var response = await fetch("https://covid19-api.org/api/countries");
+    var data = await response.json();
+    data.map((d) => $(".custom-select").append(`<option value="${d.alpha2}">${d.name} (${d.alpha2})</option>`));
 }
 
 function initTimelineURL() {
@@ -108,7 +78,9 @@ function drawBarChart() { // bar chart function
                 tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), data[i-1].cases - data[i].cases]);
             }
 
-        } else {
+        } 
+        
+        else {
             for (var i = 1; i < 10; i++) {
                 var nDate = new Date(data[i].last_update);
                 tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), data[i-1].total_cases - data[i].total_cases]);
@@ -120,6 +92,7 @@ function drawBarChart() { // bar chart function
     })
     .catch(function(err) { // error handling for countries with no data
         var tableArray = [];
+
         for (var i = 1; i < 10; i++) {
             var nDate = new Date();
             tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), null]);
@@ -146,12 +119,9 @@ function drawPieChart() { // pie chart function
     .then(response => response.json())
     .then(function(data) {
         var dataArray = [];
-        if (searchRegionCode != 'world') {
-            dataArray = [data[0].cases - (data[0].deaths + data[0].recovered), data[0].recovered, data[0].deaths];
 
-        } else {
-            dataArray = [data[0].total_cases - (data[0].total_deaths + data[0].total_recovered), data[0].total_recovered, data[0].total_deaths];
-        }
+        if (searchRegionCode != 'world') dataArray = [data[0].cases - (data[0].deaths + data[0].recovered), data[0].recovered, data[0].deaths];
+        else dataArray = [data[0].total_cases - (data[0].total_deaths + data[0].total_recovered), data[0].total_recovered, data[0].total_deaths];
         
         var dataTable = google.visualization.arrayToDataTable([
             ['Status', 'Number of Cases'],
@@ -184,13 +154,37 @@ function drawLineChart() { // line chart function
     .then(response => response.json())
     .then(function(data) {
         var tableArray = [];
-        if (searchRegionCode != 'world') {
-            data.map((d) => tableArray.push([new Date(d.last_update), d.cases]));
-        } else { 
-            data.map((d) => tableArray.push([new Date(d.last_update), d.total_cases]));
-        }
+
+        if (searchRegionCode != 'world') data.map((d) => tableArray.push([new Date(d.last_update), d.cases]));
+        else data.map((d) => tableArray.push([new Date(d.last_update), d.total_cases]));
 
         dataTable.addRows(tableArray);
         chart.draw(dataTable, options);
     });
 }
+
+var searchRegionCode = $(".custom-select option:selected").val(); // used for selecting region
+
+$(document).ready(function( ) {
+    "use strict";
+    google.charts.load("current", {packages: ['corechart', 'geochart']}); // load google visualization API
+    updateChart(); // inital chart draw function
+    addCountriesToSelect(); // find country data from api and push it to select country option.
+    $(".custom-select").on("change", function(e) {
+        searchRegionCode = $(".custom-select option:selected").val();
+        updateChart();
+    });
+
+    // due to google chart limitation, it is not responsive. We need to redraw each time the window changes.
+    $(window).resize(function( ) { // create a trigger to resizeEnd event to set a timeout to reduce multiple resize updates
+        if (this.resizeTO) clearTimeout(this.resizeTO);
+
+        this.resizeTO = setTimeout(function( ) {
+            $(this).trigger('resizeEnd');
+        }, 200); // set to 200 ms
+    });
+    
+    $(window).on('resizeEnd', function( ) { // when resize is done, charts will update.
+        updateChart();
+    });
+});

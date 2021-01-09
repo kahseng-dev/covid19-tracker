@@ -1,12 +1,5 @@
-$(document).ready(function() {
-    loadData();
-
-    $("#updateData").on("click", function() { // when user clicks refresh button, reload data.
-        loadData();
-    })
-});
-
 function loadData() {
+    "use strict";
     fetch("https://covid19-api.org/api/timeline")
     .then(response => response.json())
     .then(function(data) {
@@ -27,21 +20,19 @@ function loadData() {
         $("#active-data").html(`${activeData}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
         findInfectedCountries(); // find number of countries infected
-    })
+    });
 }
 
 function findInfectedCountries() {
     var infectedCountries = 0;
-
     fetch("https://covid19-api.org/api/status")
     .then(response => response.json())
     .then(function(data) {
         data.map((d) => {
             var activeCases = d.cases - (d.deaths + d.recovered);
-            if (activeCases >= 1) {
-                infectedCountries += 1;
-            }
+            if (activeCases >= 1) infectedCountries += 1;
         });
+
         $("#country-data").html(infectedCountries);
         $("#total-country").html(data.length);
     });
@@ -49,15 +40,14 @@ function findInfectedCountries() {
     loadAritcles();
 }
 
-function loadAritcles() { // Use localhost to view.
+function loadAritcles() { // use localhost to view.
     const apiKey = '9cab93aa8f544d4bb8ec422c57e2a1d5';
     let topic = "COVID-19";
-    var url = `http://newsapi.org/v2/everything?q=${topic}&pageSize=10&apiKey=${apiKey}`
+    var url = `http://newsapi.org/v2/everything?q=${topic}&pageSize=10&apiKey=${apiKey}`;
     
     fetch(url)
-    .then((res) => { return res.json() })
-    .then((data) => {
-        console.log(data.articles);
+    .then(response => response.json())
+    .then(function(data) {
         var articles = data.articles;
         articles.map((a) => {
             $(".news-group").append(`
@@ -69,9 +59,16 @@ function loadAritcles() { // Use localhost to view.
                         <a href="${a.url}" target="_blank" class="btn btn-warning">View Article</a>
                     </div>
                 </div>
-            `)
-        })
+            `);
+        });
     })
-
-    //.catch(err => console.log("Please use localhost to view News"))
+    .catch(err => console.log("Please use localhost to view News"))
 }
+
+$(document).ready(function() {
+    loadData();
+    
+    $("#updateData").on("click", function() { // when user clicks refresh button, reload data.
+        loadData();
+    });
+});
