@@ -74,14 +74,22 @@ footer p {
     margin: 0;
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 650px) {
     .title-group {
         flex-direction: column;
         text-align: center;
     }
+
+    .form-inline {
+        flex-direction: column;
+    }
+
+    .btn-group {
+        padding: 12px;
+    }
     
     .form-control {
-        width: 460px;
+        width: 400px;
     }
 
     .table-container {
@@ -99,7 +107,7 @@ footer p {
 }
 
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 580px) {
     .form-control {
         width: 340px
     }
@@ -112,7 +120,7 @@ footer p {
         display: none;
     }
 
-    .active {
+    .activeCase {
         display: none;
     }
 }
@@ -128,6 +136,10 @@ footer p {
     }
 
     .countryName {
+        display: none;
+    }
+
+    .activeCase {
         display: none;
     }
 }
