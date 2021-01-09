@@ -13,6 +13,18 @@ $(document).ready(function() {
     $("#totalDeathsButton").click(function() { count = checkSort("byDeaths", count) })
     $("#totalRecoveredButton").click(function() { count = checkSort("byRecovered", count) })
     $("#activeCaseButton").click(function() { count = checkSort("byActive", count); })
+
+    searchBar.addEventListener('keyup', (e) => {
+        const searchString = e.target.value.toLowerCase();
+        const filteredCountries = countryArray.filter(c => {
+            return (
+                c.alpha3.toLowerCase().includes(searchString) ||
+                c.name.toLowerCase().includes(searchString) ||
+                c.country.toLowerCase().includes(searchString)
+            );
+        })
+        displayData(filteredCountries);
+    })
 });
 
 function checkSort(order, count) {
@@ -46,6 +58,7 @@ async function loadData() {
 }
 
 function displayData(array) {
+    entries.innerHTML = "";
     const htmlString = array.map((data) => {
         return `
         <tr>
@@ -62,8 +75,6 @@ function displayData(array) {
 }
 
 function sortData(order, reverse) {
-    entries.innerHTML = "";
-    
     switch(order) {
         case "byCountry":
             countryArray.sort(function(a, b) {
