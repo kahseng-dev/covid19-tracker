@@ -10,7 +10,7 @@ $(document).ready(function() {
         searchRegionCode = $(".custom-select option:selected").val();
         updateChart();
     });
-    
+
     // due to google chart limitation, it is not responsive. We need to redraw each time the window changes.
     $(window).resize(function() { // create a trigger to resizeEnd event to set a timeout to reduce multiple resize updates
         if (this.resizeTO) clearTimeout(this.resizeTO);
@@ -30,17 +30,36 @@ async function drawRegionMap() { // geo chart function
 
     var options = {
         region: searchRegionCode,
+        enableRegionInteractivity: 'true',
         backgroundColor: 'none',
         datalessRegionColor: '#888',
         colorAxis: {colors: ['#FAFFD8', '#FFBF46', '#EE6055', '#DE3C4B']},
         legend: {textStyle: {color:'#888', auraColor: 'none', fontSize: 16}}
     };
-    const response = await fetch("https://covid19-api.org/api/status");
-    const data = await response.json();
+
+    const statusRes = await fetch("https://covid19-api.org/api/status");
+    const statusData = await statusRes.json();
+
+    const countriesRes = await fetch("https://covid19-api.org/api/countries");
+    const countriesData = await countriesRes.json();
     
-    var tableArray = [['Country', 'Total Cases']];
-    data.map((d) => tableArray.push([d.country, d.cases]))
+    var tableArray = [['Country', 'Cases', 'Active']];
+
+    statusData.map((s) => {
+        countriesData.map((c) => {
+            if (c.alpha2 == s.country) {
+                tableArray.push([{v:s.country, f:`${c.name} (${s.country})`}, s.cases, s.cases - (s.deaths + s.recovered)])
+            }
+        })
+    })
+
     chart.draw(google.visualization.arrayToDataTable(tableArray), options);
+
+    google.visualization.events.addListener(chart, 'select', function() {
+        var selection = chart.getSelection();
+        searchRegionCode = tableArray[selection[0].row + 1][0].v;
+        updateChart();
+    })
 }
 
 async function addCountriesToSelect() {
@@ -56,6 +75,7 @@ function initTimelineURL() {
 }
 
 function updateChart() {
+    $(`.custom-select option[value=${searchRegionCode}]`).attr('selected', 'selected');
     google.charts.setOnLoadCallback(drawRegionMap); // call geo chart function
     google.charts.setOnLoadCallback(drawBarChart); // call bar chart function
     google.charts.setOnLoadCallback(drawPieChart); // call pie chart function
