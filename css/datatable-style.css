@@ -125,6 +125,21 @@ footer p {
     }
 }
 
+@media only screen and (max-width: 400px) {
+    .navbar-brand {
+        margin: 0;
+    }
+
+    .navbar-dark .navbar-brand {
+        font-size: 16px;
+    }
+
+    .navbar-brand img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
 
 @media only screen and (max-width: 360px) {
     .form-control {
