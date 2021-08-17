@@ -4,7 +4,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary - COVID-19 Tracker</title>
-    <link href="/css/tailwind.css" rel="stylesheet">
+    <!-- <link href="/css/tailwind.css" rel="stylesheet"> -->
+    <!-- Temporary Fix -->
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link href="/img/logo.svg" rel="icon">
 </head>
 
@@ -22,8 +24,8 @@
 
                     <div class="hidden font-semibold text-base text-white md:flex items-center space-x-1">
                         <a href="index.html" class="py-5 px-3 hover:text-blue-500">Summary</a>
-                        <a href="html/data-table.html" class="py-5 px-3 hover:text-blue-500">Data Table</a>
-                        <a href="html/dashboard.html" class="py-5 px-3 hover:text-blue-500">Dashboard</a>
+                        <a href="/html/data-table.html" class="py-5 px-3 hover:text-blue-500">Data Table</a>
+                        <a href="/html/dashboard.html" class="py-5 px-3 hover:text-blue-500">Dashboard</a>
                     </div>
                 </div>
 
@@ -41,8 +43,8 @@
         <!-- mobile menu -->
         <div class="mobile-menu hidden md:hidden ml-4 font-semibold text-base text-white">
             <a href="index.html" class="block py-5 px-3 hover:text-blue-500">Summary</a>
-            <a href="html/data-table.html" class="block py-5 px-3 hover:text-blue-500">Data Table</a>
-            <a href="html/dashboard.html" class="block py-5 px-3 hover:text-blue-500">Dashboard</a>
+            <a href="/html/data-table.html" class="block py-5 px-3 hover:text-blue-500">Data Table</a>
+            <a href="/html/dashboard.html" class="block py-5 px-3 hover:text-blue-500">Dashboard</a>
         </div>
     </nav>
 
@@ -150,6 +152,6 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
