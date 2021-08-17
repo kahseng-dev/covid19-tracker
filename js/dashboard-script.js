@@ -1,194 +1,120 @@
-async function drawRegionMap() { // geo chart function
-    "use strict";
-    var chart = new google.visualization.GeoChart(document.getElementById('regionMap'));
-
-    var options = { // customise options for geo chart
-        region: searchRegionCode,
-        enableRegionInteractivity: 'true',
-        backgroundColor: 'none',
-        datalessRegionColor: '#888',
-        colorAxis: {colors: ['#FAFFD8', '#FFBF46', '#EE6055', '#DE3C4B']},
-        legend: {textStyle: {color: '#888', auraColor: 'none', fontSize: 16}}
-    };
-
-    var statusRes = await fetch("https://covid19-api.org/api/status"); // get status data. COVID-19 API: https://covid19-api.org/
-    var statusData = await statusRes.json();
-
-    var countriesRes = await fetch("https://covid19-api.org/api/countries"); // get countries data. COVID-19 API: https://covid19-api.org/
-    var countriesData = await countriesRes.json();
-
-    var tableArray = [['Country', 'Cases', 'Active']]; // load data into geo chart
-    statusData.map((s) => {
-        countriesData.map((c) => {
-            if (c.alpha2 == s.country) tableArray.push([{v:s.country, f:`${c.name} (${s.country})`}, s.cases, s.cases - (s.deaths + s.recovered)]);
-        });
-    });
-    
-    chart.draw(google.visualization.arrayToDataTable(tableArray), options); // draw chart
-    google.visualization.events.addListener(chart, 'select', function() { // if user selects a country, go into the country and update the charts
-        var selection = chart.getSelection();
-        searchRegionCode = tableArray[selection[0].row + 1][0].v;
-        updateChart();
-    });
-}
-
-async function addCountriesToSelect() { // add countries to select options
-    var response = await fetch("https://covid19-api.org/api/countries");
-    var data = await response.json();
-    data.map((d) => $(".custom-select").append(`<option value="${d.alpha2}">${d.name} (${d.alpha2})</option>`));
-}
-
-function initTimelineURL() { // find timeline data
-    var url = "https://covid19-api.org/api/timeline";
-    if (searchRegionCode != 'world') url += ("/" + searchRegionCode); // if searchRegionCode is not world, find data for search region country
-    return url;
-}
-
-function updateChart() {
-    $(`.custom-select option[value=${searchRegionCode}]`).attr('selected', 'selected');
-     // Google Visualisation Geo Chart: https://developers.google.com/chart/interactive/docs/gallery/geochart
-    google.charts.setOnLoadCallback(drawRegionMap);
-     // Google Visualisation Column Chart: https://developers.google.com/chart/interactive/docs/gallery/columnchart
-    google.charts.setOnLoadCallback(drawBarChart);
-     // Google Visualisation Pie Chart: https://developers.google.com/chart/interactive/docs/gallery/piechart#donut
-    google.charts.setOnLoadCallback(drawPieChart);
-     // Google Visualisation Line Chart: https://developers.google.com/chart/interactive/docs/gallery/linechart
-    google.charts.setOnLoadCallback(drawLineChart);
-}
-
-function drawBarChart() { // bar chart function
-    var dataTable = new google.visualization.DataTable();
-    var chart = new google.visualization.ColumnChart(document.getElementById("barChart"));
-    
-    dataTable.addColumn('date', 'Date'); // set Date column as date
-    dataTable.addColumn('number', 'Cases'); // set Cases column as numeric
-
-    var options = { // customise options for bar chart
-        chartArea: {width: '80%', height: '80%'},
-        colors: ['#E7EB90'],
-        legend: 'none',
-        backgroundColor: 'none',
-        hAxis: {format: 'MMM d', textStyle: {color: '#fff'}, gridlineColor: 'none', minorGridlines: {count: 0}},
-        vAxis: {format: 'short', textStyle: {color: '#fff'}, gridlineColor: '#444', minorGridlines: {color: 'none'}},
-    };
-
-    fetch(initTimelineURL())
-    .then(response => response.json())
-    .then(function(data) {
-        var tableArray = [];
-        if (searchRegionCode != 'world') {
-            for (var i = 1; i < 10; i++) {
-                var nDate = new Date(data[i].last_update);
-                tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), data[i-1].cases - data[i].cases]);
-            }
-
-        } 
-        
-        else {
-            for (var i = 1; i < 10; i++) {
-                var nDate = new Date(data[i].last_update);
-                tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), data[i-1].total_cases - data[i].total_cases]);
-            }
-        }
-
-        dataTable.addRows(tableArray);
-        chart.draw(dataTable, options);
+$(document).ready(function() {
+    $("button.mobile-menu-button").on("click", function() {
+        $(".mobile-menu").toggle("hidden")
     })
-    .catch(function(err) { // error handling for countries with no data
-        var tableArray = [];
 
-        for (var i = 1; i < 10; i++) {
-            var nDate = new Date();
-            tableArray.push([new Date(nDate.getFullYear(), nDate.getMonth(), nDate.getDate() + 1), null]);
+    const API = "https://disease.sh/v3/covid-19/"
+
+    fetch(API + "countries")
+    .then(response => response.json())
+    .then(function(data) {
+        $("#date").html(`Last Updated: <br class="inline lg:hidden" />${new Date(data[0].updated).toUTCString()}`)
+        
+        var mapData = []
+
+        data.map((d) => {
+            mapData.push([String(d.countryInfo.iso2).toLowerCase(), d.cases])
+        })
+
+        Highcharts.mapChart('map', {
+            chart: {
+                backgroundColor: null,
+                map: 'custom/world'
+            },
+
+            title: { text: null },
+            mapNavigation: { enabled: false },
+            
+            colorAxis: {
+                labels: {
+                    style: { color: '#BFDBFE' }
+                },
+                min: 0,
+                stops: [
+                    [0, '#EFF6FF'],
+                    [0.25, '#2563EB'],
+                    [0.5, '#1D4ED8'],
+                    [0.75, '#1E40AF'],
+                    [1, '#1E3A8A']
+                ]
+            },
+
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'bottom'
+            },
+        
+            series: [{
+                data: mapData,
+                name: 'Number of Cases',
+                states: {
+                    hover: {
+                        color: '#F59E0B'
+                    }
+                },
+                dataLabels: {
+                    enabled: false,
+                    format: '{point.name}'
+                }
+            }]
+        })
+    })
+
+    fetch(API + "historical/all?lastdays=all")
+    .then(response => response.json())
+    .then(function(data) {
+        
+        var timelineDates = []
+        var timelineData = []
+        
+        for (const [key, value] of Object.entries(data.cases)) {
+            timelineDates.push(key)
+            timelineData.push(value)
         }
 
-        dataTable.addRows(tableArray);
-        chart.draw(dataTable, options);
-    });
-}
-
-function drawPieChart() { // pie chart function
-    var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
-
-    var options = { // customise options for pie chart
-        chartArea: {width: '80%', height: '90%'},
-        backgroundColor: 'none',
-        legend: 'none',
-        tooltip: {textStyle: {fontSize: 12}},
-        pieSliceTextStyle: {fontSize: 16},
-        slices: {0:{color: '#EC7505'}, 1:{color: '#5FAD41'}, 2:{color: '#FF5154'}}
-    };
-
-    fetch(initTimelineURL())
-    .then(response => response.json())
-    .then(function(data) {
-        var dataArray = [];
-
-        if (searchRegionCode != 'world') dataArray = [data[0].cases - (data[0].deaths + data[0].recovered), data[0].recovered, data[0].deaths];
-        else dataArray = [data[0].total_cases - (data[0].total_deaths + data[0].total_recovered), data[0].total_recovered, data[0].total_deaths];
-        
-        var dataTable = google.visualization.arrayToDataTable([
-            ['Status', 'Number of Cases'],
-            ['Active', dataArray[0]],
-            ['Recovered', dataArray[1]],
-            ['Death', dataArray[2]],
-        ]);
-
-        chart.draw(dataTable, options);
-    });
-}
-
-function drawLineChart() { // line chart function
-    var dataTable = new google.visualization.DataTable();
-    var chart = new google.visualization.LineChart(document.getElementById('lineChart'));
-    
-    dataTable.addColumn('date', 'Date');
-    dataTable.addColumn('number', 'Cases');
-
-    var options = { // customise options for line chart
-        backgroundColor: 'none',
-        legend: 'none',
-        chartArea: {width: '70%', height: '80%'},
-        colors: ['#E7EB90'],
-        hAxis: {title: 'Date', format: 'MMM d', titleTextStyle: {color: '#fff'}, textStyle: {color: '#fff'}, gridlineColor: '#333', minorGridlines: {color: 'none',  count: 0}},
-        vAxis: {title: 'Cases', format: 'short', titleTextStyle: {color: '#fff'}, textStyle: {color: '#fff'}, gridlineColor: '#333', minorGridlines: {color: '#333'}},
-    };
-
-    fetch(initTimelineURL())
-    .then(response => response.json())
-    .then(function(data) {
-        var tableArray = [];
-
-        if (searchRegionCode != 'world') data.map((d) => tableArray.push([new Date(d.last_update), d.cases]));
-        else data.map((d) => tableArray.push([new Date(d.last_update), d.total_cases]));
-
-        dataTable.addRows(tableArray);
-        chart.draw(dataTable, options);
-    });
-}
-
-var searchRegionCode = $(".custom-select option:selected").val(); // used for selecting region
-
-$(document).ready(function( ) {
-    "use strict";
-    google.charts.load("current", {packages: ['corechart', 'geochart']}); // load google visualization API
-    updateChart(); // inital chart draw function
-    addCountriesToSelect(); // find country data from api and push it to select country option.
-    $(".custom-select").on("change", function(e) {
-        searchRegionCode = $(".custom-select option:selected").val();
-        updateChart();
-    });
-
-    // due to google chart limitation, it is not responsive. We need to redraw each time the window changes.
-    $(window).resize(function( ) { // create a trigger to resizeEnd event to set a timeout to reduce multiple resize updates
-        if (this.resizeTO) clearTimeout(this.resizeTO);
-
-        this.resizeTO = setTimeout(function( ) {
-            $(this).trigger('resizeEnd');
-        }, 200); // set to 200 ms
-    });
-    
-    $(window).on('resizeEnd', function( ) { // when resize is done, charts will update.
-        updateChart();
-    });
-});
+        let timelineChart = document.getElementById("timelineChart");
+        new Chart(timelineChart, {
+            type:'line',
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#BFDBFE'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: '#1F2937'
+                        },
+                        ticks: {
+                            color: '#BFDBFE'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: '#1F2937'
+                        },
+                        ticks: {
+                            color: '#BFDBFE',
+                            beginAtZero: true
+                        }
+                    }
+                }
+            },
+            data: {
+                labels: timelineDates,
+                datasets: [{
+                    label: "Cases",
+                    data: timelineData,
+                    fill: false,
+                    borderColor: 'rgb(245, 158, 11)',
+                    backgroundColor: 'rgba(245, 158, 11, 0.5)',
+                    tension: 0.1
+                }]
+            }
+        })
+    })
+})

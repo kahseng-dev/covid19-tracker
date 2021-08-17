@@ -1,73 +1,64 @@
 function loadData() {
-    "use strict";
-    fetch("https://covid19-api.org/api/timeline") // fetch timeline data. COVID-19 API: https://covid19-api.org/
+    const API = "https://disease.sh/v3/covid-19/"
+
+    fetch(API + "all")
     .then(response => response.json())
     .then(function(data) {
-        $("#data-date").html(new Date(data[0].last_update).toDateString()); // insert the date of data
-        
-        // display total cases
-        $("#confirmed-data").html(`${data[0].total_cases}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
-        $("#deaths-data").html(`${data[0].total_deaths}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#recovered-data").html(`${data[0].total_recovered}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        
-        // display new cases from the difference of the previous day entry
-        $("#new-confirmed-data").html(`${data[0].total_cases - data[1].total_cases}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#new-deaths-data").html(`${data[0].total_deaths - data[1].total_deaths}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        $("#new-recovered-data").html(`${data[0].total_recovered - data[1].total_recovered}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        // display global active cases
-        var activeData = data[0].total_cases - (data[0].total_deaths + data[0].total_recovered);
-        $("#active-data").html(`${activeData}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-        findInfectedCountries(); // find number of countries infected
-    });
+        $("#date").html(`Last Updated: <br class="inline lg:hidden" />${new Date(data.updated).toUTCString()}`)
+        $("#sum-confirmed").html(data.cases.toLocaleString("en-US"))
+        $("#today-confirmed").html(`+${data.todayCases.toLocaleString("en-US")}`)
+        $("#sum-deaths").html(data.deaths.toLocaleString("en-US"))
+        $("#today-deaths").html(`+${data.todayDeaths.toLocaleString("en-US")}`)
+        $("#sum-recovered").html(data.recovered.toLocaleString("en-US"))
+        $("#today-recovered").html(`+${data.todayRecovered.toLocaleString("en-US")}`)
+        $("#active-cases").html(data.active.toLocaleString("en-US"))
+        $("#affected-countries").html(data.affectedCountries)
+    })
 }
 
-function findInfectedCountries() {
-    var infectedCountries = 0;
-    fetch("https://covid19-api.org/api/status") // fetch the status data. COVID-19 API: https://covid19-api.org/
-    .then(response => response.json())
-    .then(function(data) {
-        data.map((d) => { 
-            var activeCases = d.cases - (d.deaths + d.recovered); // finding if there is atleast one active case in a country
-            if (activeCases >= 1) infectedCountries += 1; // if there is, increase infected countries variable by 1
-        });
-
-        $("#country-data").html(infectedCountries); // insert infected countries
-        $("#total-country").html(data.length); // insert out of total number of countries given by api data
-    });
-
-    loadAritcles(); // move to load article function
-}
-
-function loadAritcles() { // Noted: please use localhost to view.
-    const apiKey = '48bca8c56bd4859a1472b7a8218c0053';
-    let topic = "COVID-19";
-    var url = `https://gnews.io/api/v4/search?q="${topic}"&lang=en&token=${apiKey}`; // GNews: https://gnews.io/
+function loadNews() {
+    const API_KEY = "48bca8c56bd4859a1472b7a8218c0053"
+    let query = "COVID19"
+    let lang = "en"
+    const URL = `https://gnews.io/api/v4/search?q=${query}&lang=${lang}&token=${API_KEY}`
     
-    fetch(url)
+    fetch(URL)
     .then(response => response.json())
     .then(function(data) {
-        var articles = data.articles;
-        articles.map((a) => { // append news article cards into news section
-            $(".news-group").append(`
-                <div class="card">
-                    <div class="center-cropped" style="background-image: url('${a.image}');"></div>
-                    <div class="card-body">
-                        <h5 class="card-title">${a.title}</h5>
-                        <p class="card-text">${a.description}</p>
-                        <a href="${a.url}" target="_blank" class="btn btn-warning">View Article</a>
+        if (data.articles.length > 0) {
+            $("#news-warning").hide()
+
+            var articles = data.articles;
+            articles.map((a) => {
+                $("#articles").append(`
+                    <div class="max-w-sm rounded shadow-lg mr-4 bg-white">
+                        <img class="h-48 w-full object-cover" src="${a.image}" alt="${a.title}">
+                        <div class="w-64 h-52 min-w-full px-6 py-4">
+                            <p class="font-bold text-lg pb-2 overflow-hidden">${a.title}</p>
+                            <p class="text-gray-700 max-w-xl font-semibold text-base overflow-hidden" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">${a.description}</p>
+                        </div>
+                        <div class="px-6 pt-4 pb-2">
+                            <a class="inline-block bg-blue-100 hover:bg-blue-600 rounded-full px-3 py-1 text-sm font-semibold text-blue-600 hover:text-blue-100 mr-2 mb-2" href="${a.url}">View Article</a>
+                        </div>
                     </div>
-                </div>
-            `);
-        });
-    });
+                `)
+            })
+        }
+
+        else $("#news-warning").show()
+    })
 }
 
-$(document).ready(function() { // start of main program
-    loadData(); // inital load data on web load
+$(document).ready(function() {
+    loadData()
+    loadNews()
+
+    $("#update-data").on("click", function() {
+        loadData()
+        loadNews()
+    })
     
-    $("#updateData").on("click", function() { // if user clicks the refresh button, reload data.
-        loadData();
-    });
-});
+    $("button.mobile-menu-button").on("click", function() {
+        $(".mobile-menu").toggle("hidden");
+    })
+})
