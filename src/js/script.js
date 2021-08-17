@@ -17,28 +17,32 @@ function loadData() {
 }
 
 function loadNews() {
-    const API_KEY = "48bca8c56bd4859a1472b7a8218c0053"
     let query = "COVID19"
-    let lang = "en"
-    const URL = `https://gnews.io/api/v4/search?q=${query}&lang=${lang}&token=${API_KEY}`
+    const URL = `https://bing-news-search1.p.rapidapi.com/news/search?q=${query}&originalImg=true&safeSearch=Off&textFormat=Raw&freshness=Day`
     
-    fetch(URL)
+    fetch(URL, {
+        "method": "GET",
+        "headers": {
+            "x-bingapis-sdk": "true",
+            "x-rapidapi-key": "76c0dcf4a5msh8088c99bb5d3244p12a80ajsn5a6d240e96ea",
+            "x-rapidapi-host": "bing-news-search1.p.rapidapi.com"
+        }
+    })
     .then(response => response.json())
     .then(function(data) {
-        if (data.articles.length > 0) {
+        if (data.value.length > 0) {
             $("#news-warning").hide()
-
-            var articles = data.articles;
+            var articles = data.value;
             articles.map((a) => {
                 $("#articles").append(`
-                    <div class="max-w-sm rounded shadow-lg mr-4 bg-white">
-                        <img class="h-48 w-full object-cover" src="${a.image}" alt="${a.title}">
+                    <div class="max-w-sm rounded-lg shadow-lg mr-4 bg-white">
+                        <img class="h-48 rounded-t-lg w-full object-cover" src="${a.image.contentUrl}" alt="${a.name}">
                         <div class="w-64 h-52 min-w-full px-6 py-4">
-                            <p class="font-bold text-lg pb-2 overflow-hidden">${a.title}</p>
-                            <p class="text-gray-700 max-w-xl font-semibold text-base overflow-hidden" style="text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">${a.description}</p>
+                            <p class="font-bold text-lg pb-2 max-h-14 overflow-ellipsis overflow-hidden">${a.name}</p>
+                            <p class="text-gray-700 max-h-24 font-semibold text-base overflow-ellipsis overflow-hidden">${a.description}</p>
                         </div>
                         <div class="px-6 pt-4 pb-2">
-                            <a class="inline-block bg-blue-100 hover:bg-blue-600 rounded-full px-3 py-1 text-sm font-semibold text-blue-600 hover:text-blue-100 mr-2 mb-2" href="${a.url}">View Article</a>
+                            <a class="inline-block bg-blue-100 hover:bg-blue-600 rounded-full px-3 py-1 text-sm font-semibold text-blue-600 hover:text-blue-100 mr-2 mb-2" href="${a.url}" target="blank">View Article</a>
                         </div>
                     </div>
                 `)
