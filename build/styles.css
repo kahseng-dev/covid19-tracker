@@ -709,6 +709,10 @@ video {
   height: 66.666667%;
 }
 
+.h-96 {
+  height: 24rem;
+}
+
 .h-48 {
   height: 12rem;
 }
@@ -1171,6 +1175,26 @@ video {
 .hover\:text-blue-100:hover {
   --tw-text-opacity: 1;
   color: rgba(219, 234, 254, var(--tw-text-opacity));
+}
+
+@media (min-width: 279px) and (max-width: 415px) {
+  .mobile\:h-72 {
+    height: 18rem;
+  }
+
+  .mobile\:p-8 {
+    padding: 2rem;
+  }
+
+  .mobile\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .mobile\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }
 
 @media (min-width: 640px) {

@@ -21,13 +21,17 @@ $(document).ready(function() {
                 backgroundColor: null,
                 map: 'custom/world'
             },
-
-            title: { text: null },
-            mapNavigation: { enabled: false },
-            
+            title: { 
+                text: null 
+            },
+            mapNavigation: { 
+                enabled: false 
+            },
             colorAxis: {
                 labels: {
-                    style: { color: '#BFDBFE' }
+                    style: { 
+                        color: '#BFDBFE' 
+                    }
                 },
                 min: 0,
                 stops: [
@@ -38,13 +42,11 @@ $(document).ready(function() {
                     [1, '#1E3A8A']
                 ]
             },
-
             legend: {
                 layout: 'vertical',
                 align: 'left',
                 verticalAlign: 'bottom'
             },
-        
             series: [{
                 data: mapData,
                 name: 'Number of Cases',
@@ -99,6 +101,8 @@ $(document).ready(function() {
         new Chart(timelineChart, {
             type:'line',
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         labels: {

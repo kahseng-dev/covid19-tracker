@@ -46,9 +46,9 @@
         </div>
     </nav>
 
-    <div class="p-16">
+    <div class="p-16 mobile:p-8">
         <div class="text-center">
-            <h1 class="text-6xl font-extrabold text-white pb-6">COVID-19 Pandemic at a Glance.</h1>
+            <h1 class="text-6xl mobile:text-3xl font-extrabold text-white pb-6">COVID-19 Pandemic at a Glance.</h1>
             <div class="flex align-middle justify-center mb-6">
                 <span class="text-lg text-gray-400 font-medium" id="date"></span>
                 <button class="ml-4 text-white hover:text-blue-500" id="update-data">
@@ -59,45 +59,45 @@
 
         <div class="grid grid-flow-col grid-cols-1 grid-rows-3 lg:grid-rows-1 lg:grid-cols-3">
             <div class="text-yellow-500 font-semibold m-4 p-8 rounded-lg bg-yellow-50">
-                <p class="text-4xl font-bold" id="sum-confirmed">0</p>
-                <p class="text-4xl font-bold" id="today-confirmed">0</p>
+                <p class="text-4xl mobile:text-2xl font-bold" id="sum-confirmed">0</p>
+                <p class="text-4xl mobile:text-2xl font-bold" id="today-confirmed">0</p>
                 <p class="text-lg">Global Confirmed Cases</p>
             </div>
 
             <div class="text-red-400 font-semibold m-4 p-8 rounded-lg bg-red-50">
-                <p class="text-4xl font-bold" id="sum-deaths">0</p>
-                <p class="text-4xl font-bold" id="today-deaths">0</p>
+                <p class="text-4xl mobile:text-2xl font-bold" id="sum-deaths">0</p>
+                <p class="text-4xl mobile:text-2xl font-bold" id="today-deaths">0</p>
                 <p class="text-lg">Global Deaths Cases</p>
             </div>
 
             <div class="text-green-700 font-semibold m-4 p-8 rounded-lg bg-green-50">
-                <p class="text-4xl font-bold" id="sum-recovered">0</p>
-                <p class="text-4xl font-bold" id="today-recovered">0</p>
+                <p class="text-4xl mobile:text-2xl font-bold" id="sum-recovered">0</p>
+                <p class="text-4xl mobile:text-2xl font-bold" id="today-recovered">0</p>
                 <p class="text-lg">Global Recovered Cases</p>
             </div>
         </div>
     </div>
 
-    <div class="p-16 text-center">
-        <h1 class="text-6xl font-extrabold text-white pb-8">
-            There are <span id="active-cases" class="text-6xl font-bold text-blue-500">0</span> active cases.
+    <div class="p-16 mobile:p-8 text-center">
+        <h1 class="text-6xl mobile:text-3xl font-extrabold text-white pb-8">
+            There are <span id="active-cases" class="font-bold text-blue-500">0</span> active cases.
         </h1>
     </div>
 
-    <div class="p-16">
-        <h1 class="text-6xl font-extrabold text-center text-white">
+    <div class="p-16 mobile:p-8">
+        <h1 class="text-6xl mobile:text-3xl font-extrabold text-center text-white">
             COVID-19 has spread across <span id="affected-countries" class="font-bold text-blue-500">0</span> countries.
         </h1>
     </div>
 
-    <div class="p-16">
-        <h1 class="text-6xl font-extrabold text-center text-white pb-8">News</h1>
+    <div class="p-16 mobile:p-8">
+        <h1 class="text-6xl mobile:text-3xl font-extrabold text-center text-white pb-8">News</h1>
         <p id="news-warning" class="text-xl font-semibold text-center text-gray-400">Oops something went wrong.</p>
         <div class="flex overflow-x-auto" id="articles"></div>
     </div>
 
-    <div class="p-16 text-center">
-        <h1 class="text-6xl font-extrabold text-white pb-8">What is COVID-19?</h1>
+    <div class="p-16 mobile:p-8 text-center">
+        <h1 class="text-6xl mobile:text-3xl font-extrabold text-white pb-8">What is COVID-19?</h1>
         <p class="text-xl font-semibold text-gray-400 pb-6 max-w-4xl space-y-6 mx-auto">COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of 'viral pneumonia' in Wuhan, People's Republic of China.</p>
         <a class="text-xl text-blue-400 hover:text-blue-600 font-semibold" target="blank" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019">
             Learn More <svg class="inline fill-current font-semibold" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>

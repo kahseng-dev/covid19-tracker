@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   mode: 'jit',
   purge: [
@@ -7,7 +9,10 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    screens: {
+      'mobile':{'min': '279px', 'max': '415px'},
+      ...defaultTheme.screens,
+    },
   },
   variants: {
     extend: {},
