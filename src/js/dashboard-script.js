@@ -64,14 +64,36 @@ $(document).ready(function() {
     fetch(API + "historical/all?lastdays=all")
     .then(response => response.json())
     .then(function(data) {
-        
         var timelineDates = []
         var timelineData = []
         
-        for (const [key, value] of Object.entries(data.cases)) {
-            timelineDates.push(key)
-            timelineData.push(value)
-        }
+        $.each(data.cases, function(date, value) {
+            timelineDates.push(date)
+        })
+
+        $.each(data, function(key, value) {
+            switch(key) {
+                case "cases":
+                    color = "#F3A712"
+                    break;
+
+                case "deaths":
+                    color = "#E85F5C"
+                    break;
+
+                case "recovered":
+                    color = "#9EB25D"
+                    break;
+            }
+
+            timelineData.push({
+                label: key,
+                data: value,
+                fill: false,
+                backgroundColor: color,
+                tension: 0.1
+            })
+        })
 
         let timelineChart = document.getElementById("timelineChart");
         new Chart(timelineChart, {
@@ -106,14 +128,7 @@ $(document).ready(function() {
             },
             data: {
                 labels: timelineDates,
-                datasets: [{
-                    label: "Cases",
-                    data: timelineData,
-                    fill: false,
-                    borderColor: 'rgb(245, 158, 11)',
-                    backgroundColor: 'rgba(245, 158, 11, 0.5)',
-                    tension: 0.1
-                }]
+                datasets: timelineData
             }
         })
     })
