@@ -1,26 +1,23 @@
 # COVID-19 Tracker Website #
-A website that tracks and displays data regarding the novel coronavirus disease COVID-19 (SARS-CoV-2).
-
-This project aims to combine Google's visualization API with the COVID-19 data API by Smartable AI. It provides a summary, data table and visualization page to help users find and understand data about COVID-19.
+This website provides a summary, data table and a dashboard which uses charts to display the COVID-19 data provided by disease.sh. This website aims to help users find information regarding the novel coronavirus disease COVID-19 (SARS-CoV-2).
 
 ## Design Process ##
-People who want to understand COVID-19.
+General visitors who are interested in COVID-19.
 - Provide a summary of the current COVID-19 situation to instantly update users. This summary page will need to be simple to reduce the feeling of being overwhelmed with information for users.
 - Search data for an individual country.
 - Provide visuals to help communicate the data and help users understand trends.
 - Provide reliable COVID-19 news to help inform users.
 - Provide links to reliable COVID-19 sources such as the World Health Organization(WHO).
 
-News and Media
-- Provide pre-made visuals so that they can report on the trends of COVID-19.
-
 Researchers
 - Aid researchers with different visuals to help understand the trends of COVID-19.
 - Aid researchers with a timeline graph of COVID-19.
 - Possible help in spotting anomalies.
 
-Click [here](https://kahseng-dev.github.io/IDAssignment2/) to view GitHub Page.
-Click [here](https://github.com/kahseng-dev/IDAssignment2/blob/main/wireframe/wireframe.pdf) to view the project Wireframe.
+News and Media
+- Provide pre-made visuals so that they can report on the trends of COVID-19.
+
+Click [here](https://kahseng-dev.github.io/covid19-tracker/) to view GitHub Page.
 
 ## Features ##
 ### Existing Features ###
@@ -55,7 +52,7 @@ Other Features:
 - Responsive Website
 
 ### Features Left to Implement ###
-- All planned features have been implemented as of 9th January 2021
+- All planned features have been implemented as of 20th August 2021
 
 ## Technologies Used ##
 - [HTML](https://whatwg.org/): To create content layer.
@@ -63,7 +60,6 @@ Other Features:
 - [JavaScript](https://www.javascript.com/): To create interactive layer.
 - [JQuery](https://jquery.com/): JS library used for event handling and html manipulation.
 - [Visual Studio Code](https://code.visualstudio.com/): Integrated development environment used.
-- [Adobe XD](https://www.adobe.com/products/xd.html): To create and plan the wireframe of the website.
 - [Adobe Photoshop](https://www.adobe.com/products/photoshop.html): To edit image assets.
 
 ## Testing ##
@@ -71,38 +67,23 @@ Other Features:
 - Tested responsiveness on different window/mobile screen sizes.
 - Tested on Chrome, Firefox and Brave Browser.
 - Pass validators:
-    - [HTML Validator](https://validator.w3.org/)
-    - [CSS Validator](https://jigsaw.w3.org/css-validator/)
-- [JavaScript Validator](https://codebeautify.org/jsvalidate): Validator only suggests JQuery and Global variables as errors.
+  - [HTML Validator](https://validator.w3.org/)
+  - [CSS Validator](https://jigsaw.w3.org/css-validator/)
+  - [JavaScript Validator](https://codebeautify.org/jsvalidate): Validator only suggests JQuery and Global variables as errors.
 
 ## Credits ##
 ### Content ###
-- [COVID-19 data API](https://covid19-api.org/#top): COVID-19 data API used.
-- [Smartable AI](https://smartable.ai/): COVID-19 data powered by Smartable AI.
-- [Johns Hopkins University GitHub](https://github.com/CSSEGISandData/COVID-19): GitHub Page of Data source
-- [Google Visualization API](https://developers.google.com/chart/interactive/docs/reference#DataTable): Referenced and used in the visualization of COVID-19 data.
-- [GNews API](https://gnews.io/): News API used.
-- [WHO Coronavirus Page](https://www.who.int/health-topics/coronavirus#tab=tab_1)
+- [COVID-19 data API by disease.sh](https://disease.sh/): COVID-19 data API used.
+- [Chart.js API](https://www.chartjs.org/docs/latest/): Referenced and used in the visualization of COVID-19 data.
+- [Bing News Search API](https://rapidapi.com/microsoft-azure-org-microsoft-cognitive-services/api/bing-news-search1/): News API used.
+- [WHO COVID-19 Page](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
+
 ### Media ###
-- [Coronavirus icon used](https://icons8.com/icon/10565/coronavirus)
+- [Coronavirus icon used](https://fonts.google.com/icons?icon.query=corona)
 
 ### Acknowledgements ###
-- [Caffeine Monitor](https://cm.buildconf.com/): Some design elements are inspired by Caffeine Monitor.
-- [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/): Used bootstrap templates to aid in development.
 - [w3schools](https://www.w3schools.com/): For general HTML, CSS, JavaScript and JQuery guides.
-- [sort Array Method JS Tutorial](https://www.youtube.com/watch?v=RsFBsBep-hA)
-- [Fetch API JS Tutorial](https://www.youtube.com/watch?v=cuEtnrL9-H0)
-- [COVID-19 Tracker Application Project](https://www.youtube.com/watch?v=khJlrj3Y6Ls): Used as inspiration for this project.
-- [Coronavirus Case Website Project](https://www.youtube.com/watch?v=VneeLm_haLI): Used as inspiration for this project.
-- [Styling Selector Menus CSS Tutorial](https://www.youtube.com/watch?v=8cExRlT--Zc)
-- [JS Search Bar Tutorial](https://www.youtube.com/watch?v=wxz5vJ1BWrc)
-- [Async JS Crash Course](https://www.youtube.com/watch?v=PoRJizFvM7s)
-- [Async, Await and Promises Tutorial](https://www.youtube.com/watch?v=vn3tm0quoqE)
-- [Working with Data and APIs in JS Tutorial](https://www.youtube.com/watch?v=uxf0--uiX0I)
-- [How To Get Value Of Selected Radio Button In JS Tutorial](https://www.youtube.com/watch?v=uzwUBDQfpkU)
-- [Taking Input from Radiobuttons in JS Tutorial](https://www.youtube.com/watch?v=r3Oc4IUP0XI)
-- [News API Tutorial](https://www.youtube.com/watch?v=fOSGazKFRYE)
-- [How to Setup localhost Server on Windows 10 Tutorial](https://www.youtube.com/watch?v=gpSK0CbSu2g)
-- [Insert comma as decimal seperators](https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript)
-- [Google chart update on window resize](https://stackoverflow.com/questions/8950761/google-chart-redraw-scale-on-window-resize)
-- [Pressing Enter in input field refreshes the page](https://stackoverflow.com/questions/2215462/html-form-when-i-hit-enter-it-refreshes-page)
+- [Tailwind CSS](https://tailwindcss.com/): Used tailwindcss for styling of website.
+- [Tailwind Navigation Bar](https://www.youtube.com/watch?v=puaX_nhTMRU): Used for tailwind navigation bar.
+- [Fetch API JS Tutorial](https://www.youtube.com/watch?v=cuEtnrL9-H0): Used to understand fetch in js.
+- [Async, Await and Promises Tutorial](https://www.youtube.com/watch?v=vn3tm0quoqE): Used to understand fetch in js.

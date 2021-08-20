@@ -29,6 +29,13 @@ $(document).ready(function() {
     })
 
     $("button.mobile-menu-button").on("click", function() {
-        $(".mobile-menu").toggle("hidden");
+        $(".mobile-menu").toggle("hidden")
+    })
+
+    $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#data-list tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        })
     })
 })
